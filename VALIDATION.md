@@ -10,7 +10,7 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 
 # Validation scope
 
-The repository foundation is under construction. Metadata declarations and maintained-source provenance have real project-owned checkers. Native validation child supervision has a public library API exercised with actual commands, output bounds, cache refusals and deadline reaping. The complete project-owned validator suite, Ledger runtime, native interoperability result and released artefacts remain unavailable.
+The repository foundation is under construction. Metadata declarations and maintained-source provenance have real project-owned checkers. Native validation child supervision has a public library API exercised with actual commands, output bounds, cache refusals and deadline reaping. A native-tool bootstrap verifies selected archive and executable bytes before installing missing validation tools. The complete project-owned validator suite, Ledger runtime, native interoperability result and released artefacts remain unavailable.
 
 Current metadata and documentation may receive selected native checks. Each result applies only to the exact checked files and command. No complete foundation acceptance, aggregate coverage percentage or hosted status is claimed.
 

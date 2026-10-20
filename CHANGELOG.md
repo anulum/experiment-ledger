@@ -16,5 +16,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 - Record the boundary between native Ledger storage and the shared Common verification supplier.
 - Refuse conflicting optional JSON ownership declarations while preserving nested component licences.
 - Supervise native validation children with owned process groups, finite deadlines and repository-local output spools.
+- Verify native tool archives and executable bytes before explicitly bootstrapping missing validation dependencies.
 
 No runtime or release is available.

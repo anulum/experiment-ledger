@@ -58,6 +58,20 @@ Output spools live under the repository's ignored `.tool-cache/processes` direct
 
 The process API is exercised with actual metadata, native Git and MkDocs help commands. It supervises repository validation and does not establish domain recovery or filesystem-race behaviour. The full preflight profile and additional guards remain under construction.
 
+## Native executable bootstrap
+
+```sh
+make native-checks
+make native-tools
+python tools/bootstrap_native_tools.py --root . --only actionlint --json
+```
+
+`native-checks` verifies both cached originals without network access. `native-tools` explicitly retrieves missing originals. The public command accepts `--download` for that retrieval and `--only actionlint` or `--only gitleaks` for a selected check. Each JSON report identifies `native_tools` and `local_scaffold_native_tools`; exits follow the table above. Verification is scoped to the selected tools.
+
+The selected Linux x86-64 releases are actionlint 1.7.12 and Gitleaks 8.30.1. Their official HTTPS archive URLs, exact lengths, SHA-256 archive digests and independent executable digests are frozen in `ledger_validation.native_tools.NATIVE_SOURCES`. Archive identity is checked before parsing; the single selected member is read without extracting received paths. Installation stages verified bytes on the destination filesystem, sets executable mode and atomically publishes inside `.tool-cache/native`. Existing invalid, nonexecutable or nonregular destinations are preserved and refused. A download has a 15-second socket timeout and a bound on the compressed bytes read; an unavailable connection never produces a passing tool.
+
+These binaries support repository validation. The bootstrap verifies their identities without executing them. Owning checks separately exercise their native interfaces. Repository hooks verify both identities; CI installation recipes bootstrap them before running those hooks.
+
 ## Native interfaces
 
 ::: ledger_validation.metadata.verify
@@ -83,3 +97,15 @@ The process API is exercised with actual metadata, native Git and MkDocs help co
 ::: ledger_validation.command.ArgumentParser
 
 ::: ledger_validation.processes.execute
+
+::: ledger_validation.native_tools.NativeSource
+
+::: ledger_validation.native_tools.verify_binary
+
+::: ledger_validation.native_tools.unpack_archive
+
+::: ledger_validation.native_tools.ensure_tool
+
+::: ledger_validation.native_cli.main
+
+::: ledger_validation.native_cli.NativeArguments

@@ -11,7 +11,7 @@ COVERAGE_FILE ?= .tool-cache/coverage/metadata/data
 TEST_BASETEMP ?= .tool-cache/tests/metadata
 export COVERAGE_FILE
 
-.PHONY: metadata provenance lint format-check types docs test-metadata test-provenance
+.PHONY: metadata provenance lint format-check types docs test-metadata test-provenance native-tools native-checks
 
 metadata:
 	$(PYTHON) tools/check_repository_metadata.py --root . --json
@@ -39,3 +39,9 @@ test-metadata test-provenance:
 	$(PYTHON) -m coverage combine $(dir $(COVERAGE_FILE))
 	$(PYTHON) -m coverage report --fail-under=100
 	$(PYTHON) -m coverage json -o .tool-cache/coverage/metadata/result.json
+
+native-tools:
+	$(PYTHON) tools/bootstrap_native_tools.py --root . --download --json
+
+native-checks:
+	$(PYTHON) tools/bootstrap_native_tools.py --root . --json

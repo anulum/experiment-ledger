@@ -41,6 +41,12 @@ repos:
         entry: .venv/bin/python tools/check_source_provenance.py --root . --json
         pass_filenames: false
         always_run: true
+      - id: native-tool-identities
+        name: Native executable identities
+        language: system
+        entry: .venv/bin/python tools/bootstrap_native_tools.py --root . --json
+        pass_filenames: false
+        always_run: true
       - id: native-reuse
         name: Native source licence classification
         language: system
