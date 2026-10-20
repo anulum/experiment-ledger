@@ -53,7 +53,7 @@ def verify(root: Path) -> None:
     ------
     CheckFailure
         For missing required paths, nonregular or escaping source paths,
-        private/generated/credential source enrolment, unignored internal
+        private/generated/credential or unqualified source enrolment, unignored internal
         documentation, actual forbidden root state or excessive source bytes.
 
     Notes
@@ -96,6 +96,13 @@ def verify(root: Path) -> None:
                 raise CheckFailure("source_input_unavailable", name, unavailable=True)
             if path.stat().st_size > BINARY_LENGTHS.get(name, 1048576):
                 raise CheckFailure("source_size_exceeded", name)
+            if (
+                name not in REQUIRED_FILES
+                and name not in ("gitleaks.toml", "LICENSES/AGPL-3.0-or-later.txt")
+                and path.suffix != ".md"
+                and not (path.suffix == ".py" and parts[0] in ("tools", "tests"))
+            ):
+                raise CheckFailure("source_scope_unqualified", name)
         except OSError as error:
             raise CheckFailure("source_input_unavailable", name, unavailable=True) from error
     enrolled = set(names)

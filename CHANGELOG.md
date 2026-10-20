@@ -31,4 +31,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 
 - Verify the uv installer through the owned native bootstrap before environment creation, dependency installation or compatibility checks.
 
+- Refuse executable roots, languages and build manifests outside the qualified source inventory.
+
 No runtime or release is available.

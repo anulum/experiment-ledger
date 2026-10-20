@@ -302,3 +302,24 @@ def test_unreadable_enrolled_source_reports_unavailable(root: Path) -> None:
         subprocess.run(["git", "-C", str(root), "read-tree", "--empty"], check=True)
         path.unlink()
         directory.rmdir()
+
+
+@pytest.mark.parametrize(
+    "name", ["src/record.py", "native/src/lib.rs", "tools/record.rs", "Cargo.toml"]
+)
+@pytest.mark.parametrize("tracked", [False, True])
+def test_new_source_scope_requires_qualified_gates(root: Path, name: str, tracked: bool) -> None:
+    """Actual received source cannot enter an unchecked root or language through Git enrolment."""
+    path = root / name
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes((SOURCE / "tools/check_repository_inventory.py").read_bytes())
+    if tracked:
+        subprocess.run(["git", "-C", str(root), "add", "--", name], check=True)
+    assert _report(root, 2)["findings"] == [{"code": "source_scope_unqualified", "location": name}]
+
+
+def test_new_python_module_uses_the_existing_qualified_source_scope(root: Path) -> None:
+    """An additional actual Python checker stays inside the existing whole tools gate scope."""
+    path = root / "tools/additional_inventory_check.py"
+    path.write_bytes((SOURCE / "tools/check_repository_inventory.py").read_bytes())
+    assert _report(root, 0)["findings"] == []
