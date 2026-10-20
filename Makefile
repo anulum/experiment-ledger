@@ -14,13 +14,16 @@ export TMPDIR := $(abspath .tool-cache/tmp)
 export PRE_COMMIT_HOME := $(abspath .tool-cache/pre-commit)
 .NOTPARALLEL:
 
-.PHONY: metadata provenance workflow-policy dependencies inventory documentation
+.PHONY: metadata metadata-inventory provenance workflow-policy dependencies inventory documentation
 .PHONY: lint format-check types docs test test-metadata test-provenance
 .PHONY: native-tools native-checks preflight source-audit ci source-patterns
 .PHONY: credentials vulnerabilities workflow-native workflow-static compatibility
 
 metadata:
 	$(PYTHON) tools/check_repository_metadata.py --root . --json
+
+metadata-inventory:
+	@$(PYTHON) tools/generate_capability_inventory.py --root .
 
 provenance:
 	$(PYTHON) tools/check_source_provenance.py --root . --json

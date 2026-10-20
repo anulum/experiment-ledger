@@ -9,6 +9,7 @@
 """Check complete local-scaffold declarations against their selected source policy."""
 
 import hashlib
+import json
 from pathlib import Path
 from typing import Final
 
@@ -29,19 +30,25 @@ PLANNED_FORMATS: Final[list[Json]] = [
 ]
 
 
-def verify(root: Path) -> None:
-    """Verify the complete metadata and its exact derived capability inventory.
+def inventory_bytes(root: Path) -> bytes:
+    """Generate the canonical inventory from complete validated metadata inputs.
 
     Parameters
     ----------
     root : Path
-        Local repository supplying metadata, schema, lock and inventory.
+        Local repository supplying metadata, schema and development lock.
+
+    Returns
+    -------
+    bytes
+        Deterministic UTF-8 JSON with sorted members, two-space indentation
+        and one trailing newline. No inventory output is read or written.
 
     Raises
     ------
     CheckFailure
         For unavailable or malformed inputs, changed schema policy, an
-        incorrect metadata declaration or a mismatched derived inventory.
+        incorrect metadata declaration.
 
     Notes
     -----
@@ -77,8 +84,6 @@ def verify(root: Path) -> None:
     }
     if metadata != expected:
         raise CheckFailure("metadata_mismatch", metadata_name)
-    inventory_name = "capability-inventory.json"
-    _, inventory = read_object(root, inventory_name)
     expected_inventory: dict[str, Json] = {
         "repository_name": "EXPERIMENT-LEDGER",
         "lifecycle": "local_scaffold",
@@ -91,5 +96,25 @@ def verify(root: Path) -> None:
             "sha256": hashlib.sha256(raw).hexdigest(),
         },
     }
-    if inventory != expected_inventory:
+    return (json.dumps(expected_inventory, indent=2, sort_keys=True) + "\n").encode("utf-8")
+
+
+def verify(root: Path) -> None:
+    """Compare the original inventory bytes with their qualified generator output.
+
+    Parameters
+    ----------
+    root : Path
+        Repository supplying metadata, schema, lock and generated inventory.
+
+    Raises
+    ------
+    CheckFailure
+        For invalid or unavailable declarations or inventory bytes that differ
+        from deterministic regeneration, including serialization-only drift.
+    """
+    expected_inventory = inventory_bytes(root)
+    inventory_name = "capability-inventory.json"
+    raw, _ = read_object(root, inventory_name)
+    if raw != expected_inventory:
         raise CheckFailure("inventory_mismatch", inventory_name)

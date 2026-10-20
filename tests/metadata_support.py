@@ -94,6 +94,42 @@ def _snapshot(root: Path) -> dict[str, bytes]:
     }
 
 
+def _generate(root: Path, *arguments: str) -> subprocess.CompletedProcess[bytes]:
+    """Invoke the real inventory generator with measured original output bytes.
+
+    Parameters
+    ----------
+    root : Path
+        Source declarations passed to the public generator.
+    arguments : str
+        Additional received command arguments.
+
+    Returns
+    -------
+    subprocess.CompletedProcess[bytes]
+        Native status and unmodified stdout/stderr bytes.
+    """
+    return subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "coverage",
+            "run",
+            "--parallel-mode",
+            "--branch",
+            "--source=" + str(SOURCE / "tools") + "," + str(SOURCE / "tests"),
+            str(SOURCE / "tools/generate_capability_inventory.py"),
+            "--root",
+            str(root),
+            *arguments,
+        ],
+        cwd=root,
+        env=dict(os.environ),
+        capture_output=True,
+        timeout=15,
+    )
+
+
 def _report(result: subprocess.CompletedProcess[str], expected: int) -> dict[str, Json]:
     """Check native exit semantics and return the actual JSON object.
 
@@ -135,4 +171,4 @@ def _rewrite_metadata(root: Path, data: dict[str, Json]) -> None:
     source = inventory["source_metadata"]
     assert isinstance(source, dict)
     source["sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
-    inventory_path.write_text(json.dumps(inventory) + "\n")
+    inventory_path.write_text(json.dumps(inventory, indent=2, sort_keys=True) + "\n")

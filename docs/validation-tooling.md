@@ -15,6 +15,7 @@ These commands inspect the local repository foundation. Ledger capabilities, qua
 | Command | Make target | Scope |
 | --- | --- | --- |
 | `tools/check_repository_metadata.py` | `metadata` | Complete metadata declarations and exact byte bindings |
+| `tools/generate_capability_inventory.py` | `metadata-inventory` | Canonical inventory bytes from validated source declarations |
 | `tools/check_source_provenance.py` | `provenance` | Maintained-source ownership and selected originals |
 | `tools/check_workflow_policy.py` | `workflow-policy` | Seven classified workflow execution contracts |
 | `tools/check_dependency_alignment.py` | `dependencies` | Actual installed development graph and reviewed execution configuration |
@@ -41,6 +42,8 @@ make metadata
 ```
 
 The metadata check compares the complete local declarations with the selected project policy, binds the exact schema bytes and development lock digest, and checks the derived capability inventory against the original metadata bytes. Capabilities, claims, qualified formats and domain dependencies must remain empty. Four planned format names are declarations.
+
+`make metadata-inventory` emits deterministic UTF-8 JSON to stdout. The owning generator validates the complete metadata, schema and lock before emitting any output, and can regenerate a missing inventory without reading that output. It uses sorted members, two-space indentation and one trailing newline. `make metadata` compares the original inventory bytes with regeneration and refuses serialization drift as well as content drift. Generation leaves repository files untouched; validate a candidate before replacing the maintained output. This generator owns the capability inventory only. Dependency provenance retains its original source records and separate qualification.
 
 JSON declarations are limited to 65,536 original bytes and the lock to 1,048,576 bytes. Duplicate members, nonfinite numbers, invalid Unicode, excessive nesting and non-object declarations refuse. `decode_object` provides the same strict semantics for original in-memory bytes. `read_object` also retains the original file bytes. Neither rewrites its inputs.
 
@@ -135,6 +138,10 @@ The full profile requires every declared gate to run and qualify. `--only` is di
 ## Native interfaces
 
 ::: ledger_validation.metadata.verify
+
+::: ledger_validation.metadata.inventory_bytes
+
+::: ledger_validation.metadata_cli.generate_main
 
 ::: ledger_validation.metadata_cli.main
 

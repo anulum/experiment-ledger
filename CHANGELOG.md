@@ -23,5 +23,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 - Verify ShellCheck alongside Actionlint before native workflow analysis.
 
 - Generate schema-validated dependency inventory with reproducible bytes and controlled timestamp inputs.
+- Regenerate capability inventory through its owning public command and reject byte drift in metadata checks.
 
 No runtime or release is available.
