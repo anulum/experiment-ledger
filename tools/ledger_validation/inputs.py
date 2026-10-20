@@ -144,6 +144,34 @@ def read_object(root: Path, name: str, limit: int = 65536) -> tuple[bytes, dict[
         members, nonfinite numbers, excessive nesting or invalid Unicode.
     """
     raw = read_bytes(root, name, limit)
+    return raw, decode_object(raw, name, limit)
+
+
+def decode_object(raw: bytes, name: str, limit: int = 65536) -> dict[str, Json]:
+    """Decode bounded original UTF-8 object bytes with exact JSON member semantics.
+
+    Parameters
+    ----------
+    raw : bytes
+        Complete original received bytes, preserved without reserialization.
+    name : str
+        Caller-selected fixed diagnostic location.
+    limit : int
+        Maximum admitted original byte count.
+
+    Returns
+    -------
+    dict[str, Json]
+        Complete object with unique members, finite numbers and valid Unicode.
+
+    Raises
+    ------
+    CheckFailure
+        For oversized, malformed or non-object JSON, duplicate members,
+        nonfinite numbers, excessive nesting or invalid Unicode.
+    """
+    if len(raw) > limit:
+        raise CheckFailure("input_too_large", name)
     try:
         value = cast(
             Json,
@@ -158,4 +186,4 @@ def read_object(root: Path, name: str, limit: int = 65536) -> tuple[bytes, dict[
         raise CheckFailure("input_invalid", name) from error
     if not isinstance(value, dict):
         raise CheckFailure("input_invalid", name)
-    return raw, value
+    return value

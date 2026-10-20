@@ -15,7 +15,7 @@ from typing import cast
 
 import pytest
 
-from ledger_validation.inputs import Json
+from ledger_validation.inputs import CheckFailure, Json, decode_object
 
 from .metadata_support import INPUTS, SOURCE, _report, _rewrite_metadata, _run, _snapshot
 
@@ -284,3 +284,15 @@ def test_cli_help_and_invalid_invocation(root: Path, argument: str, expected: in
     else:
         assert "Check Experiment Ledger repository metadata declarations." in result.stdout
         assert result.stderr == ""
+
+
+@pytest.mark.parametrize("extra", [0, 1])
+def test_public_byte_decoder_uses_original_declaration_bound(root: Path, extra: int) -> None:
+    """The public in-memory decoder accepts exact original bytes and refuses one byte beyond its bound."""
+    raw = (root / "repository-domain.json").read_bytes()
+    if extra:
+        with pytest.raises(CheckFailure) as error:
+            decode_object(raw, "repository-domain.json", len(raw) - extra)
+        assert error.value.code == "input_too_large"
+    else:
+        assert decode_object(raw, "repository-domain.json", len(raw)) == json.loads(raw)

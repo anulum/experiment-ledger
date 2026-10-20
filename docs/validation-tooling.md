@@ -19,7 +19,7 @@ make metadata
 
 It checks the complete local metadata against the selected project policy, binds the exact schema bytes, checks the development lock digest and verifies the derived capability inventory against the original metadata bytes. Capabilities, claims, qualified formats and domain dependencies must remain empty. The four planned format names are declarations rather than registered or supported formats.
 
-JSON declarations are limited to 65,536 original bytes; the lock is limited to 1,048,576 bytes. Duplicate members, nonfinite values, invalid Unicode and non-object declarations refuse. A deeply nested valid JSON object still needs to match the complete metadata contract. The checker preserves its inputs and does not publish a report file.
+The public `decode_object` API applies the same strict semantics directly to bounded original UTF-8 bytes. JSON declarations are limited to 65,536 original bytes; the lock is limited to 1,048,576 bytes. Duplicate members, nonfinite values, invalid Unicode and non-object declarations refuse. A deeply nested valid JSON object still needs to match the complete metadata contract. The checker preserves its inputs and does not publish a report file.
 
 | Exit | Meaning |
 | --- | --- |
@@ -77,6 +77,8 @@ These binaries support repository validation. The bootstrap verifies their ident
 ::: ledger_validation.metadata.verify
 
 ::: ledger_validation.metadata_cli.main
+
+::: ledger_validation.inputs.decode_object
 
 ::: ledger_validation.inputs.read_object
 

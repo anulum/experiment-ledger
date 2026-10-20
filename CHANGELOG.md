@@ -17,5 +17,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 - Refuse conflicting optional JSON ownership declarations while preserving nested component licences.
 - Supervise native validation children with owned process groups, finite deadlines and repository-local output spools.
 - Verify native tool archives and executable bytes before explicitly bootstrapping missing validation dependencies.
+- Expose strict bounded JSON decoding for original in-memory bytes.
 
 No runtime or release is available.
