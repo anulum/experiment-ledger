@@ -53,8 +53,8 @@ COMMANDS = {
     "sbom": (
         "inventory",
         "mkdir -p .tool-cache/sbom\n"
-        ".venv/bin/python -m cyclonedx_py requirements requirements-dev.txt "
-        "--of JSON -o .tool-cache/sbom/development.cdx.json",
+        "env -u SOURCE_DATE_EPOCH .venv/bin/python -m cyclonedx_py requirements requirements-dev.txt "
+        "--output-reproducible --validate --of JSON -o .tool-cache/sbom/development.cdx.json",
     ),
     "security-audit": ("source-audit", "make source-audit"),
 }

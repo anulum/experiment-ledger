@@ -29,7 +29,7 @@ SOURCE_DISPOSITIONS = {
         "ELINFRA-SAST-NATIVE-001",
     ),
     "tools/ledger_validation/workflows.py": (
-        "4458c5497e000757dc0a1ea507329a2b27c6fdae1ff628d4acc3123bbf0bbf8f",
+        "f5d2bd67f4db772ea696540d71a64ea96be25b01d47e9b75510da8bd65d6c9a1",
         "ELINFRA-SAST-WORKFLOW-001",
     ),
 }

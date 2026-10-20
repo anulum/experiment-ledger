@@ -22,4 +22,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 - Wire all foundation validators, reviewed native gates, complete profile and workflow execution contracts.
 - Verify ShellCheck alongside Actionlint before native workflow analysis.
 
+- Generate schema-validated dependency inventory with reproducible bytes and controlled timestamp inputs.
+
 No runtime or release is available.
