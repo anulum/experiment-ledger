@@ -24,5 +24,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 
 - Generate schema-validated dependency inventory with reproducible bytes and controlled timestamp inputs.
 - Regenerate capability inventory through its owning public command and reject byte drift in metadata checks.
+- Bind declared licence and dependency descriptions to the original installed package metadata.
 
 No runtime or release is available.

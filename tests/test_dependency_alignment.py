@@ -151,6 +151,51 @@ def test_changed_package_sources_refuse(root: Path, member: str, value: Json, co
 
 
 @pytest.mark.parametrize(
+    ("member", "value"),
+    [
+        ("license_classifiers", []),
+        ("license_expression", "UNRELATED-FORGED-LICENCE"),
+        ("license_label", "unrelated received label"),
+        ("requires_dist", []),
+    ],
+)
+def test_descriptive_metadata_cannot_drift_from_its_installed_source(
+    root: Path, member: str, value: Json
+) -> None:
+    """A correct installed METADATA hash cannot qualify changed descriptive fields."""
+    path = root / "dependency-provenance.json"
+    data = cast(dict[str, Json], json.loads(path.read_text()))
+    packages = data["packages"]
+    assert isinstance(packages, list) and isinstance(packages[0], dict)
+    assert packages[0][member] != value
+    packages[0][member] = value
+    path.write_text(json.dumps(data))
+    before = path.read_bytes()
+    assert _report(root, 2)["findings"] == [
+        {"code": "dependency_metadata_projection_mismatch", "location": path.name}
+    ]
+    assert path.read_bytes() == before
+
+
+@pytest.mark.parametrize(
+    "member", ["license_classifiers", "license_expression", "license_label", "requires_dist"]
+)
+def test_missing_descriptive_metadata_cannot_match_an_absent_installed_label(
+    root: Path, member: str
+) -> None:
+    """Every descriptive field is required even when the original value is null."""
+    path = root / "dependency-provenance.json"
+    data = cast(dict[str, Json], json.loads(path.read_text()))
+    packages = data["packages"]
+    assert isinstance(packages, list) and isinstance(packages[0], dict)
+    del packages[0][member]
+    path.write_text(json.dumps(data))
+    assert _report(root, 2)["findings"] == [
+        {"code": "dependency_metadata_projection_mismatch", "location": path.name}
+    ]
+
+
+@pytest.mark.parametrize(
     ("member", "value", "expected", "code"),
     [
         ("path", "../outside", 2, "dependency_licence_path_invalid"),

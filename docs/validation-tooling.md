@@ -70,6 +70,8 @@ The workflow policy classifies every job in seven exact definitions. Correctness
 
 Dependency alignment checks the actual Python 3.13.16 interpreter and the complete selected installed distribution set. It validates direct/transitive roles, exact lock versions and source hashes, active dependency compatibility, installed METADATA identities and the complete installed licence/attribution file catalogue with original byte identities. Omitted or repeated licence evidence refuses. Reviewed Make, hook, analysis and credential-scanner configurations are byte-bound in `ledger_validation.execution`; semantic workflow checks bind their installation and execution contracts. Configuration changes require a corresponding owned review and policy update.
 
+Each package's declared licence classifiers, licence expression, original licence label and complete dependency declarations must also match the installed metadata. All four fields are required, including explicit null values when the original label is absent. An unchanged METADATA hash cannot qualify changed or omitted descriptive fields.
+
 Native Actionlint uses the explicitly selected and independently verified ShellCheck executable. Zizmor runs offline with the pedantic persona, informational severity enabled and configuration/ignore overrides disabled. Native executable identity is checked before launch.
 
 ## Documentation and inventory

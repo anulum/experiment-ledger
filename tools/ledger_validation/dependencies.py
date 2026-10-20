@@ -140,6 +140,19 @@ def verify(root: Path) -> None:
             or _digest(metadata.encode("utf-8")) != record.get("metadata_sha256")
         ):
             raise CheckFailure("dependency_installed_source_mismatch", PROVENANCE)
+        installed_metadata = distribution.metadata
+        projection: dict[str, object] = {
+            "license_classifiers": [
+                value
+                for value in installed_metadata.get_all("Classifier") or []
+                if value.startswith("License ::")
+            ],
+            "license_expression": installed_metadata.get("License-Expression"),
+            "license_label": installed_metadata.get("License"),
+            "requires_dist": distribution.requires or [],
+        }
+        if any(key not in record or record[key] != value for key, value in projection.items()):
+            raise CheckFailure("dependency_metadata_projection_mismatch", PROVENANCE)
         required_python = distribution.metadata.get("Requires-Python", "")
         if actual_python not in SpecifierSet(required_python):
             raise CheckFailure("dependency_python_incompatible", PROVENANCE)
