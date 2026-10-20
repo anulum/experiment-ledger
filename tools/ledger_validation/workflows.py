@@ -20,13 +20,11 @@ type Yaml = str | list[Yaml] | dict[str, Yaml]
 
 CHECKOUT = "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd"
 PYTHON = "actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405"
-UV = "astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78"
 CODEQL = "github/codeql-action/{}@0d579ffd059c29b07949a3cce3983f0780820c98"
 SCORECARD = (
     "docker://ghcr.io/ossf/scorecard-action@sha256:"
     "2dd6a6d60100f78ef24e14a47941d0087a524b4d3642041558239b1c6097c941"
 )
-UV_CHECKSUM = "b9980552309f09c15172b8be828555e375097f16deb459795ce7bfd200380f0b"
 SCORECARD_EVENT = (
     "${{ github.event_name == 'pull_request' || "
     "github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}"
@@ -36,10 +34,11 @@ DEVELOPMENT_ENVIRONMENT = {
     "UV_CACHE_DIR": "${{ github.workspace }}/.tool-cache/uv",
     "PRE_COMMIT_HOME": "${{ github.workspace }}/.tool-cache/pre-commit",
 }
+BOOTSTRAP = "python -S tools/bootstrap_native_tools.py --root . --only uv --download --json"
 INSTALL = (
     "mkdir -p .tool-cache/tmp\n"
-    "uv venv --python 3.13.16 .venv\n"
-    "uv pip sync --python .venv/bin/python --require-hashes "
+    ".tool-cache/native/uv/uv venv --python 3.13.16 --no-python-downloads .venv\n"
+    ".tool-cache/native/uv/uv pip sync --python .venv/bin/python --require-hashes "
     "--build-constraints requirements-dev.txt --link-mode hardlink requirements-dev.txt\n"
     "make native-tools"
 )
@@ -141,17 +140,7 @@ def _expected_jobs(stem: str) -> dict[str, Json]:
             [
                 checkout,
                 _action(PYTHON, {"python-version": "3.13.16"}),
-                _action(
-                    UV,
-                    {
-                        "version": "0.12.22",
-                        "enable-cache": "true",
-                        "cache-dependency-glob": "requirements-dev.txt",
-                        "cache-local-path": "${{ github.workspace }}/.tool-cache/uv",
-                        "checksum": UV_CHECKSUM,
-                        "prune-cache": "false",
-                    },
-                ),
+                {"run": BOOTSTRAP},
                 {"run": INSTALL},
                 {"run": command},
             ]

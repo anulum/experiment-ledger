@@ -16,12 +16,13 @@ Work is local-first on main. Preserve existing tracked, staged and untracked mat
 
 Development requirements describe validation tooling, not domain dependencies. The selected Python line is 3.13, with the exact patch and complete development lock bound in repository metadata. New environments must use uv and a shared hardlink cache on the same filesystem. Do not install by copied package trees or rebuild an environment used by another process.
 
-The tooling target is Linux x86-64 with Python 3.13.16 and uv 0.12.22. Create an isolated environment, install the complete hash lock using hardlinks, then bootstrap the selected native originals:
+The tooling target is Linux x86-64 with Python 3.13.16 and uv 0.12.22. Use the selected Python to verify the native uv installer before creating an isolated environment. Install the complete hash lock using hardlinks, then bootstrap the remaining selected native originals:
 
 ```sh
 mkdir -p .tool-cache/uv .tool-cache/tmp
-uv venv --python 3.13.16 .venv
-UV_CACHE_DIR="$PWD/.tool-cache/uv" UV_LINK_MODE=hardlink uv pip sync --python .venv/bin/python --require-hashes --build-constraints requirements-dev.txt requirements-dev.txt
+python3.13 -S tools/bootstrap_native_tools.py --root . --only uv --download --json
+.tool-cache/native/uv/uv venv --python 3.13.16 --no-python-downloads .venv
+UV_CACHE_DIR="$PWD/.tool-cache/uv" UV_LINK_MODE=hardlink .tool-cache/native/uv/uv pip sync --python .venv/bin/python --require-hashes --build-constraints requirements-dev.txt requirements-dev.txt
 make native-tools
 ```
 

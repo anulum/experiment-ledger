@@ -34,20 +34,13 @@ jobs:
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
         with:
           python-version: '3.13.16'
-      - name: Locked environment installer
-        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78
-        with:
-          version: '0.12.22'
-          enable-cache: true
-          cache-dependency-glob: requirements-dev.txt
-          cache-local-path: ${{ github.workspace }}/.tool-cache/uv
-          checksum: b9980552309f09c15172b8be828555e375097f16deb459795ce7bfd200380f0b
-          prune-cache: false
+      - name: Verify environment installer
+        run: python -S tools/bootstrap_native_tools.py --root . --only uv --download --json
       - name: Install exact development graph
         run: |
           mkdir -p .tool-cache/tmp
-          uv venv --python 3.13.16 .venv
-          uv pip sync --python .venv/bin/python --require-hashes --build-constraints requirements-dev.txt --link-mode hardlink requirements-dev.txt
+          .tool-cache/native/uv/uv venv --python 3.13.16 --no-python-downloads .venv
+          .tool-cache/native/uv/uv pip sync --python .venv/bin/python --require-hashes --build-constraints requirements-dev.txt --link-mode hardlink requirements-dev.txt
           make native-tools
       - name: Repository validation
         run: |

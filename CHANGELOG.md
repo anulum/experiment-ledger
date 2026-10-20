@@ -29,4 +29,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 
 - Constrain isolated source-build dependencies with the complete hash lock during development and CI installation.
 
+- Verify the uv installer through the owned native bootstrap before environment creation, dependency installation or compatibility checks.
+
 No runtime or release is available.

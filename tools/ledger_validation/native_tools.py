@@ -49,6 +49,15 @@ class NativeSource(NamedTuple):
 
 
 NATIVE_SOURCES = {
+    "uv": NativeSource(
+        "https://github.com/astral-sh/uv/releases/download/0.12.22/"
+        "uv-x86_64-unknown-linux-gnu.tar.gz",
+        19916278,
+        "b9980552309f09c15172b8be828555e375097f16deb459795ce7bfd200380f0b",
+        47991416,
+        "96e1603cb62aebb1a804fe9866a5708ee8bba4c39d07202ad29cf256a67366c3",
+        "uv-x86_64-unknown-linux-gnu/uv",
+    ),
     "actionlint": NativeSource(
         "https://github.com/rhysd/actionlint/releases/download/v1.7.12/"
         "actionlint_1.7.12_linux_amd64.tar.gz",

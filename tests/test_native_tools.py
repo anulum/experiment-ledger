@@ -85,7 +85,7 @@ def archives() -> dict[str, bytes]:
     return originals
 
 
-@pytest.mark.parametrize("name", ["actionlint", "gitleaks", "shellcheck"])
+@pytest.mark.parametrize("name", ["actionlint", "gitleaks", "shellcheck", "uv"])
 def test_selected_original_archive_and_binary_identities(
     archives: dict[str, bytes], name: str
 ) -> None:
@@ -94,25 +94,27 @@ def test_selected_original_archive_and_binary_identities(
     assert raw == (SOURCE / f".tool-cache/native/{name}/{name}").read_bytes()
 
 
+@pytest.mark.parametrize("name", ["actionlint", "uv"])
 @pytest.mark.parametrize("change", ["length", "digest"])
 def test_changed_actual_archive_refuses_before_parsing(
-    archives: dict[str, bytes], change: str
+    archives: dict[str, bytes], change: str, name: str
 ) -> None:
     """Truncation and equal-length alteration of the original cannot enter the archive parser."""
-    raw = archives["actionlint"]
+    raw = archives[name]
     changed = raw[:-1] if change == "length" else bytes([raw[0] ^ 1]) + raw[1:]
     with pytest.raises(CheckFailure) as error:
-        unpack_archive("actionlint", changed)
+        unpack_archive(name, changed)
     assert error.value.code == "native_archive_mismatch"
 
 
+@pytest.mark.parametrize("name", ["actionlint", "uv"])
 @pytest.mark.parametrize("change", ["length", "digest"])
-def test_changed_actual_binary_refuses(change: str) -> None:
+def test_changed_actual_binary_refuses(change: str, name: str) -> None:
     """Actual executable length and byte identity are both mandatory."""
-    raw = (SOURCE / ".tool-cache/native/actionlint/actionlint").read_bytes()
+    raw = (SOURCE / f".tool-cache/native/{name}/{name}").read_bytes()
     changed = raw[:-1] if change == "length" else bytes([raw[0] ^ 1]) + raw[1:]
     with pytest.raises(CheckFailure) as error:
-        verify_binary("actionlint", changed)
+        verify_binary(name, changed)
     assert error.value.code == "native_source_mismatch"
 
 
@@ -216,3 +218,32 @@ def test_actual_make_bootstrap_target_retains_native_success() -> None:
     )
     assert result.returncode == 0 and not result.stderr
     assert json.loads(result.stdout.splitlines()[-1])["status"] == "passed"
+
+
+def test_first_installer_bootstrap_uses_only_the_standard_library(tmp_path: Path) -> None:
+    """The first real uv download verifies bytes with site packages disabled, before execution."""
+    environment = dict(os.environ)
+    environment.pop("PYTHONPATH", None)
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-S",
+            str(SOURCE / "tools/bootstrap_native_tools.py"),
+            "--root",
+            str(tmp_path),
+            "--only",
+            "uv",
+            "--download",
+            "--json",
+        ],
+        cwd=SOURCE,
+        env=environment,
+        capture_output=True,
+        timeout=60,
+    )
+    assert result.returncode == 0 and not result.stderr, result.stderr
+    assert json.loads(result.stdout)["findings"] == []
+    installer = tmp_path / ".tool-cache/native/uv/uv"
+    assert installer.read_bytes() == (SOURCE / ".tool-cache/native/uv/uv").read_bytes()
+    version = subprocess.run([str(installer), "--version"], capture_output=True, timeout=15)
+    assert version.returncode == 0 and version.stdout.startswith(b"uv 0.12.22")

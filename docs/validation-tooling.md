@@ -100,9 +100,11 @@ make native-tools
 python tools/bootstrap_native_tools.py --root . --only shellcheck --json
 ```
 
-`native-checks` verifies all cached originals without network access. `native-tools` explicitly retrieves missing originals; the public command exposes that permission as `--download`. `--only` selects actionlint, Gitleaks or ShellCheck. Reports identify `native_tools` and `local_scaffold_native_tools` and qualify exactly the selected tools.
+`native-checks` verifies all cached originals without network access. `native-tools` explicitly retrieves missing originals; the public command exposes that permission as `--download`. `--only` selects uv, actionlint, Gitleaks or ShellCheck. Reports identify `native_tools` and `local_scaffold_native_tools` and qualify exactly the selected tools.
 
 The Linux x86-64 releases are actionlint 1.7.12, Gitleaks 8.30.1 and ShellCheck 0.11.0. Official HTTPS archive URLs, exact lengths, archive SHA-256, reviewed member names and independent executable identities are frozen in `NATIVE_SOURCES`. Identity is checked before parsing. The selected member is read without extracting received paths; verified executable bytes are staged on the destination filesystem and atomically installed under `.tool-cache/native`.
+
+The first CI installer step runs `python -S tools/bootstrap_native_tools.py --root . --only uv --download --json`, using the selected Python standard library before any development packages exist. Both environment creation and hash-locked installation invoke that verified native uv path; Python auto-downloads are disabled. Installed compatibility checks verify the same native installer before execution. The bootstrap verifies cached executable bytes and does not retry a failed archive or executable digest through another source. No setup-uv action or restored installer cache is used.
 
 Existing invalid, nonexecutable or nonregular destinations are preserved and refused. Downloads have a 15-second socket timeout and a bound on compressed bytes read. Repository hooks verify native identities, and CI installation recipes bootstrap the selected originals before running those hooks. Downloaded tools retain their upstream licences.
 

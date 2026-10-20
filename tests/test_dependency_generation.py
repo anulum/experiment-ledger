@@ -98,11 +98,12 @@ def test_regeneration_without_existing_outputs_preserves_all_original_identities
     assert value["security_audit"] == sources["security_audit"]
     for original in sources["native_tools"]:
         assert original in value["native_tools"]
-    shellcheck = next(x for x in value["native_tools"] if x["role"] == "shellcheck")
-    assert (
-        shellcheck["binary_sha256"]
-        == hashlib.sha256((SOURCE / shellcheck["binary_relative_path"]).read_bytes()).hexdigest()
-    )
+    for role in ("shellcheck", "uv"):
+        native = next(x for x in value["native_tools"] if x["role"] == role)
+        assert (
+            native["binary_sha256"]
+            == hashlib.sha256((SOURCE / native["binary_relative_path"]).read_bytes()).hexdigest()
+        )
     assert (
         value["source_selection"]["sha256"]
         == hashlib.sha256((root / "dependency-source-selections.json").read_bytes()).hexdigest()

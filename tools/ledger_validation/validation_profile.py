@@ -13,6 +13,7 @@ from pathlib import Path
 
 SOURCE = Path(__file__).resolve().parents[2]
 NATIVE_BINARIES = {
+    "installed_compatibility": ("uv",),
     "workflow_syntax": ("actionlint", "shellcheck"),
     "source_credentials": ("gitleaks",),
 }
@@ -123,7 +124,7 @@ def commands(root: Path) -> dict[str, tuple[str, ...]]:
                 "json",
             ),
             "installed_compatibility": (
-                str(Path(sys.executable).parent / "uv"),
+                str(SOURCE / ".tool-cache/native/uv/uv"),
                 "pip",
                 "check",
                 "--python",

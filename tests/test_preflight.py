@@ -462,3 +462,33 @@ def test_workflow_gate_verifies_shellcheck_before_native_analysis(root: Path, st
     ]
     expected = "native_source_mismatch" if state == "changed" else "native_not_executable"
     assert outcomes[0]["finding"] == expected and outcomes[0]["native_exit"] is None
+
+
+@pytest.mark.parametrize("state", ["missing", "changed", "nonexecutable"])
+def test_compatibility_verifies_the_installer_before_execution(root: Path, state: str) -> None:
+    """Installed compatibility cannot execute absent, changed or nonexecutable uv bytes."""
+    installer = root / ".tool-cache/native/uv/uv"
+    installer.unlink(missing_ok=True)
+    installer.parent.mkdir(parents=True, exist_ok=True)
+    if state != "missing":
+        installer.write_bytes(
+            b"unselected installer"
+            if state == "changed"
+            else (SOURCE / ".tool-cache/native/uv/uv").read_bytes()
+        )
+        installer.chmod(0o755 if state == "changed" else 0o644)
+    process = _invoke(root, "--only", "installed_compatibility", "--json", implementation=root)
+    report = _report(process, 3 if state == "missing" else 2)
+    checks = cast(list[Json], report["checks"])
+    outcome = next(
+        item
+        for item in checks
+        if isinstance(item, dict) and item["check"] == "installed_compatibility"
+    )
+    assert isinstance(outcome, dict) and outcome["native_exit"] is None
+    expected = {
+        "missing": "native_tool_unavailable",
+        "changed": "native_source_mismatch",
+        "nonexecutable": "native_not_executable",
+    }
+    assert outcome["finding"] == expected[state]

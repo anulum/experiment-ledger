@@ -32,6 +32,14 @@
       "binary_sha256": "4da528ddb3a4d1b7b24a59d4e16eb2f5fd960f4bd9a3708a15baddbdf1d5a55b",
       "bytes": 3773312,
       "role": "shellcheck"
+    },
+    {
+      "artifact_sha256": "b9980552309f09c15172b8be828555e375097f16deb459795ce7bfd200380f0b",
+      "artifact_url": "https://github.com/astral-sh/uv/releases/download/0.12.22/uv-x86_64-unknown-linux-gnu.tar.gz",
+      "binary_relative_path": ".tool-cache/native/uv/uv",
+      "binary_sha256": "96e1603cb62aebb1a804fe9866a5708ee8bba4c39d07202ad29cf256a67366c3",
+      "bytes": 19916278,
+      "role": "uv"
     }
   ],
   "packages": [
