@@ -84,6 +84,7 @@ def root(tmp_path: Path) -> Path:
         *INPUTS,
         "requirements-dev.in",
         "dependency-provenance.json",
+        "dependency-source-selections.json",
         "Makefile",
         ".pre-commit-config.yaml",
         "pyproject.toml",

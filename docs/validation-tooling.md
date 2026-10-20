@@ -19,6 +19,7 @@ These commands inspect the local repository foundation. Ledger capabilities, qua
 | `tools/check_source_provenance.py` | `provenance` | Maintained-source ownership and selected originals |
 | `tools/check_workflow_policy.py` | `workflow-policy` | Seven classified workflow execution contracts |
 | `tools/check_dependency_alignment.py` | `dependencies` | Actual installed development graph and reviewed execution configuration |
+| `tools/generate_dependency_provenance.py` | `dependency-provenance` | Complete provenance regenerated from independent selected identities and actual installed bytes |
 | `tools/check_documentation.py` | `docs` | Local links, strict rendering and public projection |
 | `tools/check_repository_inventory.py` | `inventory` | Required paths, source containment and repository privacy |
 | `tools/bootstrap_native_tools.py` | `native-checks`, `native-tools` | Selected native archives and executable identities |
@@ -71,6 +72,8 @@ The workflow policy classifies every job in seven exact definitions. Correctness
 Dependency alignment checks the actual Python 3.13.16 interpreter and the complete selected installed distribution set. It validates direct/transitive roles, exact lock versions and source hashes, active dependency compatibility, installed METADATA identities and the complete installed licence/attribution file catalogue with original byte identities. Omitted or repeated licence evidence refuses. Reviewed Make, hook, analysis and credential-scanner configurations are byte-bound in `ledger_validation.execution`; semantic workflow checks bind their installation and execution contracts. Configuration changes require a corresponding owned review and policy update.
 
 Each package's declared licence classifiers, licence expression, original licence label and complete dependency declarations must also match the installed metadata. All four fields are required, including explicit null values when the original label is absent. An unchanged METADATA hash cannot qualify changed or omitted descriptive fields.
+
+`make -s dependency-provenance` emits deterministic original provenance bytes without reading the existing output. The separately authored `dependency-source-selections.json` retains the reviewed original artifact, METADATA and licence identities; its exact source bytes are bound by the generator. A source-selection change requires corresponding review and qualification. The generator reads actual installed METADATA and the complete original licence catalogue, computes their identities and descriptive projections, and refuses missing or altered originals. Current active native descriptors derive from the owning bootstrap pins, including ShellCheck. Original CodeQL and audit records remain historical source observations; generation performs no download, installation, native execution or new security audit. The ordinary dependency check compares the complete original provenance bytes with regeneration after its environment and execution checks. Keep candidate output outside maintained source until generation succeeds and the original source identities are reconciled.
 
 Native Actionlint uses the explicitly selected and independently verified ShellCheck executable. Zizmor runs offline with the pedantic persona, informational severity enabled and configuration/ignore overrides disabled. Native executable identity is checked before launch.
 
@@ -170,6 +173,14 @@ The full profile requires every declared gate to run and qualify. `--only` is di
 ::: ledger_validation.dependencies.installed_licence_names
 
 ::: ledger_validation.dependencies.verify
+
+::: ledger_validation.dependency_generation.provenance_bytes
+
+::: ledger_validation.dependency_generator_cli.main
+
+::: ledger_validation.dependency_inputs.parse_requirements
+
+::: ledger_validation.dependency_inputs.read_text
 
 ::: ledger_validation.dependencies_cli.main
 

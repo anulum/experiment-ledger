@@ -129,7 +129,17 @@ def test_complete_actual_inventory_preserves_sources_and_index(root: Path) -> No
     )
 
 
-@pytest.mark.parametrize("name", ["README.md", "tools/preflight.py", "tests/test_preflight.py"])
+@pytest.mark.parametrize(
+    "name",
+    [
+        "README.md",
+        "tools/preflight.py",
+        "tests/test_preflight.py",
+        "dependency-source-selections.json",
+        "dependency-source-selections.json.license",
+        "tools/generate_dependency_provenance.py",
+    ],
+)
 def test_missing_required_source_cannot_pass(root: Path, name: str) -> None:
     """Required source removal cannot shrink the accepted scaffold denominator."""
     (root / name).unlink()

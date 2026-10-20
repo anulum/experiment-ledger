@@ -10,6 +10,14 @@
       "role": "actionlint"
     },
     {
+      "artifact_sha256": "ea86393c6c812542ae5a3a7122bcc760873707a50b25cc47d2fd7cfd514b0cb0",
+      "artifact_url": "https://github.com/github/codeql-action/releases/download/codeql-bundle-v2.27.1/codeql-bundle-python-linux64.tar.zst",
+      "binary_relative_path": ".tool-cache/native/codeql/codeql/codeql",
+      "binary_sha256": "5010324098d11f9e2d34e0fcf53bb44e40e8e3ffc8aecefe695269b54edaa413",
+      "bytes": 111165259,
+      "role": "codeql"
+    },
+    {
       "artifact_sha256": "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb",
       "artifact_url": "https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz",
       "binary_relative_path": ".tool-cache/native/gitleaks/gitleaks",
@@ -18,12 +26,12 @@
       "role": "gitleaks"
     },
     {
-      "artifact_sha256": "ea86393c6c812542ae5a3a7122bcc760873707a50b25cc47d2fd7cfd514b0cb0",
-      "artifact_url": "https://github.com/github/codeql-action/releases/download/codeql-bundle-v2.27.1/codeql-bundle-python-linux64.tar.zst",
-      "binary_relative_path": ".tool-cache/native/codeql/codeql/codeql",
-      "binary_sha256": "5010324098d11f9e2d34e0fcf53bb44e40e8e3ffc8aecefe695269b54edaa413",
-      "bytes": 111165259,
-      "role": "codeql"
+      "artifact_sha256": "b7af85e41cc99489dcc21d66c6d5f3685138f06d34651e6d34b42ec6d54fe6f6",
+      "artifact_url": "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.x86_64.tar.gz",
+      "binary_relative_path": ".tool-cache/native/shellcheck/shellcheck",
+      "binary_sha256": "4da528ddb3a4d1b7b24a59d4e16eb2f5fd960f4bd9a3708a15baddbdf1d5a55b",
+      "bytes": 3773312,
+      "role": "shellcheck"
     }
   ],
   "packages": [
@@ -3635,6 +3643,10 @@
     "producer": "pip-audit",
     "sha256": "3bf24d1cc9e4d4448e1f48d85cc49636fa0fe980a022ad2c5ff93d850d695418",
     "version": "2.10.1"
+  },
+  "source_selection": {
+    "path": "dependency-source-selections.json",
+    "sha256": "034fe63d932014170b826e4092478551280c405111f06d8ab929dab88c727285"
   },
   "supported_range": ">=3.13.16,<3.14"
 }

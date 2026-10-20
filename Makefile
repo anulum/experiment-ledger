@@ -17,7 +17,7 @@ export PRE_COMMIT_HOME := $(abspath .tool-cache/pre-commit)
 .PHONY: metadata metadata-inventory provenance workflow-policy dependencies inventory documentation
 .PHONY: lint format-check types docs test test-metadata test-provenance
 .PHONY: native-tools native-checks preflight source-audit ci source-patterns
-.PHONY: credentials vulnerabilities workflow-native workflow-static compatibility
+.PHONY: credentials vulnerabilities workflow-native workflow-static compatibility dependency-provenance
 
 metadata:
 	$(PYTHON) tools/check_repository_metadata.py --root . --json
@@ -34,6 +34,9 @@ workflow-policy:
 
 dependencies:
 	$(PYTHON) tools/check_dependency_alignment.py --root . --json
+
+dependency-provenance:
+	@$(PYTHON) tools/generate_dependency_provenance.py --root .
 
 inventory:
 	$(PYTHON) tools/check_repository_inventory.py --root . --json
