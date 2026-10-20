@@ -1,0 +1,18 @@
+{
+  "creators": [
+    {
+      "affiliation": "ANULUM",
+      "name": "Šotek, Miroslav",
+      "orcid": "0009-0009-3560-0851"
+    }
+  ],
+  "description": "Architectural material and repository foundation for a planned local experiment registry with native Python and Rust storage and consumers. No Ledger runtime or qualified result is released.",
+  "keywords": [
+    "experiment provenance",
+    "evidence references",
+    "neuromorphic computing"
+  ],
+  "license": "AGPL-3.0-or-later",
+  "title": "Experiment Ledger",
+  "upload_type": "software"
+}

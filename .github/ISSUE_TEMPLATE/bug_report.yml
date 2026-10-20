@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# EXPERIMENT-LEDGER — repository identity and validation foundation
+
+name: Source problem
+description: Report a reproducible problem in the current repository material.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: This foundation has no released Ledger runtime. Do not upload sensitive data.
+  - type: textarea
+    id: revision
+    attributes:
+      label: Source revision and environment
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal non-sensitive reproducer
+      description: Include expected behaviour, observed behaviour and the exact entry point.
+    validations:
+      required: true

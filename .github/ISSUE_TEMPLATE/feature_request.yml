@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# EXPERIMENT-LEDGER — repository identity and validation foundation
+
+name: Capability proposal
+description: Describe a concrete use case within the Ledger boundary.
+title: "[Proposal]: "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: User problem and evidence
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Observable acceptance and affected languages or consumers
+    validations:
+      required: true

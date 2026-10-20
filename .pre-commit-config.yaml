@@ -1,0 +1,55 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# EXPERIMENT-LEDGER — repository identity and validation foundation
+
+default_language_version:
+  python: python3.13
+repos:
+  - repo: local
+    hooks:
+      - id: source-lint
+        name: Source lint and native docstrings
+        language: system
+        entry: .venv/bin/python -m ruff check --no-respect-gitignore tools tests
+        pass_filenames: false
+        always_run: true
+      - id: source-format
+        name: Source formatting
+        language: system
+        entry: .venv/bin/python -m ruff format --check --no-respect-gitignore tools tests
+        pass_filenames: false
+        always_run: true
+      - id: strict-types
+        name: Strict tooling and test types
+        language: system
+        entry: .venv/bin/python -m mypy --strict tools tests
+        pass_filenames: false
+        always_run: true
+      - id: metadata-declarations
+        name: Repository metadata declarations
+        language: system
+        entry: .venv/bin/python tools/check_repository_metadata.py --root . --json
+        pass_filenames: false
+        always_run: true
+      - id: source-provenance
+        name: Maintained-source licence provenance
+        language: system
+        entry: .venv/bin/python tools/check_source_provenance.py --root . --json
+        pass_filenames: false
+        always_run: true
+      - id: native-reuse
+        name: Native source licence classification
+        language: system
+        entry: .venv/bin/python -m reuse lint
+        pass_filenames: false
+        always_run: true
+      - id: native-api-docs
+        name: Native API documentation
+        language: system
+        entry: .venv/bin/python -m mkdocs build --strict --site-dir .tool-cache/pre-commit-docs
+        pass_filenames: false
+        always_run: true

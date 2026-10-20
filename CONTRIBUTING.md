@@ -1,0 +1,23 @@
+<!--
+SPDX-License-Identifier: AGPL-3.0-or-later
+Commercial license available
+© Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+© Code 2020–2026 Miroslav Šotek. All rights reserved.
+ORCID: 0009-0009-3560-0851
+Contact: www.anulum.li | protoscience@anulum.li
+EXPERIMENT-LEDGER — repository identity and validation foundation
+-->
+
+# Contributing
+
+The repository foundation is under construction. Metadata and source-provenance checks are available, while the full validation command set and any distributable Ledger package remain unfinished. Read [the architecture](docs/ARCHITECTURE.md) and [validation scope](VALIDATION.md) before proposing implementation.
+
+Work is local-first on main. Preserve existing tracked, staged and untracked material. Publication and release are separate actions. Keep private plans, research inputs, credentials and session records outside public source.
+
+Development requirements describe validation tooling, not domain dependencies. The selected Python line is 3.13, with the exact patch and complete development lock bound in repository metadata. New environments must use uv and a shared hardlink cache on the same filesystem. Do not install by copied package trees or rebuild an environment used by another process.
+
+Python code, tests and tooling require strict typing, native NumPy-style docstrings, Ruff and meaningful full statement and branch coverage for the maintained scope. Rust implementation requires native formatting, strict Clippy, tests and documentation. Both languages must preserve the complete storage and consumer semantics; a Python proxy is not Rust parity.
+
+A contribution must be reachable through its real public surface and include relevant integration, failure, documentation and reproducibility evidence. Do not add placeholder APIs, dormant crates, unearned badges or successful results for unexecuted checks.
+
+Report security-sensitive concerns privately as described in [SECURITY.md](SECURITY.md). By contributing, you agree to the [code of conduct](CODE_OF_CONDUCT.md) and provide material you have the right to license under the repository licence.
