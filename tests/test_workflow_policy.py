@@ -119,7 +119,11 @@ def test_complete_actual_graph_is_read_only(root: Path) -> None:
         ("codeql", "languages: python", "languages: rust"),
         ("codeql", "upload: never", "upload: always"),
         ("codeql", "upload-database: false", "upload-database: true"),
-        ("codeql", "tools: linked", "tools: nightly"),
+        (
+            "codeql",
+            "tools: .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst",
+            "tools: nightly",
+        ),
         ("scorecard", "INPUT_PUBLISH_RESULTS: 'false'", "INPUT_PUBLISH_RESULTS: 'true'"),
         (
             "scorecard",
@@ -141,6 +145,23 @@ def test_complete_actual_graph_is_read_only(root: Path) -> None:
         ("ci", ".tool-cache/native/uv/uv venv", "uv venv"),
         ("ci", ".tool-cache/native/uv/uv pip sync", "uv pip sync"),
         ("ci", "--no-python-downloads ", ""),
+        (
+            "codeql",
+            "tools: .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst",
+            "tools: linked",
+        ),
+        (
+            "codeql",
+            "ea86393c6c812542ae5a3a7122bcc760873707a50b25cc47d2fd7cfd514b0cb0",
+            "0000000000000000000000000000000000000000000000000000000000000000",
+        ),
+        ("codeql", "--proto-redir '=https'", "--proto-redir '=all'"),
+        ("codeql", "--retry-max-time 180", "--retry-max-time 1800"),
+        (
+            "codeql",
+            "test ! -L .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst",
+            "test -e .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst",
+        ),
         ("sbom", "requirements requirements-dev.txt", "requirements requirements.txt"),
         ("sbom", "--output-reproducible ", ""),
         ("sbom", "--validate ", "--no-validate "),

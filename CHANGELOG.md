@@ -33,4 +33,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 
 - Refuse executable roots, languages and build manifests outside the qualified source inventory.
 
+- Verify the selected CodeQL bundle before passing its local archive to the pinned analysis action.
+
 No runtime or release is available.

@@ -26,12 +26,19 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           persist-credentials: false
+      - name: Verify selected CodeQL archive
+        run: |
+          mkdir -p .tool-cache/codeql
+          test ! -e .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst
+          test ! -L .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst
+          curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' --connect-timeout 15 --max-time 120 --retry 2 --retry-max-time 180 --max-filesize 111165259 --output .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst https://github.com/github/codeql-action/releases/download/codeql-bundle-v2.27.1/codeql-bundle-python-linux64.tar.zst
+          printf '%s  %s\n' ea86393c6c812542ae5a3a7122bcc760873707a50b25cc47d2fd7cfd514b0cb0 .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst | sha256sum --check --strict
       - name: Initialise Python analysis
         uses: github/codeql-action/init@0d579ffd059c29b07949a3cce3983f0780820c98
         with:
           languages: python
           build-mode: none
-          tools: linked
+          tools: .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst
           ram: 2048
           threads: 1
       - name: Analyse without publishing

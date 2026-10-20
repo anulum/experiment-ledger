@@ -29,7 +29,7 @@ SOURCE_DISPOSITIONS = {
         "ELINFRA-SAST-NATIVE-001",
     ),
     "tools/ledger_validation/workflows.py": (
-        "c2dce0897864e51291d26d00462249420cf143ef82d03565a5c5d51b931efdd9",
+        "534ce8483be7dbd557fa4c05c2c216cda502975011848656dc34543ca003473b",
         "ELINFRA-SAST-WORKFLOW-001",
     ),
 }
@@ -43,8 +43,8 @@ FINDING_DIGESTS = frozenset(
         "6925020b56748a2f483cb4c64ba8fe298ee85618b763a4a72d8d803007aee4fc",  # B404 provenance.py:13
         "d83b92c68ebd779e3e7ce8eb8f8b72f2e19454911865daf807b3c5651be3777d",  # B607 provenance.py:65
         "ddff81084988918312211a5340414e967b3435fa6f6d5ca9763c0570210abd14",  # B603 provenance.py:65
-        "aa276cbc4b3d2c1e9a7bfa2b0048b0e0f8374c0c0c1f0e9a3ca8793ef41f8c23",  # B105 workflows.py:127
-        "0b0b5e2b4705365d7ca19a3c47f8a1dbd7dd9be6d699791baf7295203bacb78a",  # B105 workflows.py:128
+        "12aafddd0a64e6528b131a5e13cd722c37836e372d41aa87c8de07776fd1c0dd",  # B105 workflows.py:136
+        "fc1c1d896fd856659a72a3c28d4d2321d8840721b43f80905163a345c17847c1",  # B105 workflows.py:137
     }
 )
 

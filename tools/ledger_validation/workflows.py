@@ -21,6 +21,14 @@ type Yaml = str | list[Yaml] | dict[str, Yaml]
 CHECKOUT = "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd"
 PYTHON = "actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405"
 CODEQL = "github/codeql-action/{}@0d579ffd059c29b07949a3cce3983f0780820c98"
+CODEQL_ARCHIVE = ".tool-cache/codeql/codeql-bundle-python-linux64.tar.zst"
+CODEQL_DOWNLOAD = (
+    "mkdir -p .tool-cache/codeql\n"
+    "test ! -e .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst\n"
+    "test ! -L .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst\n"
+    "curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' --connect-timeout 15 --max-time 120 --retry 2 --retry-max-time 180 --max-filesize 111165259 --output .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst https://github.com/github/codeql-action/releases/download/codeql-bundle-v2.27.1/codeql-bundle-python-linux64.tar.zst\n"
+    "printf '%s  %s\\n' ea86393c6c812542ae5a3a7122bcc760873707a50b25cc47d2fd7cfd514b0cb0 .tool-cache/codeql/codeql-bundle-python-linux64.tar.zst | sha256sum --check --strict"
+)
 SCORECARD = (
     "docker://ghcr.io/ossf/scorecard-action@sha256:"
     "2dd6a6d60100f78ef24e14a47941d0087a524b4d3642041558239b1c6097c941"
@@ -89,12 +97,13 @@ def _expected_jobs(stem: str) -> dict[str, Json]:
             "python-analysis": _job(
                 [
                     checkout,
+                    {"run": CODEQL_DOWNLOAD},
                     _action(
                         CODEQL.format("init"),
                         {
                             "languages": "python",
                             "build-mode": "none",
-                            "tools": "linked",
+                            "tools": CODEQL_ARCHIVE,
                             "ram": "2048",
                             "threads": "1",
                         },
