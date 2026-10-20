@@ -50,6 +50,14 @@ Additional original or third-party material needs an explicit source-policy upda
 
 An existing top-level `SPDX-License-Identifier` or `spdx_license_identifier` in JSON must agree with its ownership sidecar. Both spellings are checked when both are present. Nested component licences retain their separate meaning. The checker adds no ownership fields and preserves the received bytes.
 
+## Native validation children
+
+The `ledger_validation.processes.execute` API runs a literal argument sequence in a selected repository, without a shell. It returns the original native exit and output bytes. Callers can provide finite standard input, a positive deadline and a returned-output bound; the defaults are 60 seconds and 1,048,576 bytes per stream.
+
+Output spools live under the repository's ignored `.tool-cache/processes` directory and close on every exit. An unavailable executable or cache yields unavailable (exit 3). An escaping cache or excessive returned output yields refused (exit 2). A deadline stops the owned process group and reaps its direct child before reporting unavailable. Temporary spools may grow until that deadline; the byte limit applies to returned output.
+
+The process API is exercised with actual metadata, native Git and MkDocs help commands. It supervises repository validation and does not establish domain recovery or filesystem-race behaviour. The full preflight profile and additional guards remain under construction.
+
 ## Native interfaces
 
 ::: ledger_validation.metadata.verify
@@ -73,3 +81,5 @@ An existing top-level `SPDX-License-Identifier` or `spdx_license_identifier` in 
 ::: ledger_validation.command.Arguments
 
 ::: ledger_validation.command.ArgumentParser
+
+::: ledger_validation.processes.execute

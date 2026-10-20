@@ -15,5 +15,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 - Establish the Experiment Ledger repository foundation with project-specific governance, planned architecture and empty capability metadata.
 - Record the boundary between native Ledger storage and the shared Common verification supplier.
 - Refuse conflicting optional JSON ownership declarations while preserving nested component licences.
+- Supervise native validation children with owned process groups, finite deadlines and repository-local output spools.
 
 No runtime or release is available.
