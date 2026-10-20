@@ -122,6 +122,8 @@ The fixed native roles are lint, formatting, strict types, source licences, work
 
 Each native-gate report retains the actual native exit and stream digests. Structured audit output is retained in `native_result.report`. Credential scans use the reviewed default-only rule configuration, disable inline allow comments and read only the Git-maintained text cohort. Dependency auditing uses the complete selected hash lock, strict collection and the actual installed graph, with no package mutation.
 
+Lint, formatting and strict types require the reviewed `pyproject.toml` before execution. An analysis failure retains the tool's nonzero `native_exit` and returns a refused report with command exit 2. A configuration refusal occurs before execution and has a null `native_exit`; it does not establish that the native tool inspected the source.
+
 Bandit scans every maintained Python tool at all severities and confidence levels. Its native exit 1 and nine current advisories remain visible. Qualification binds the complete scan, zero suppression counters, exact warning-bearing source bytes and complete original finding identities. The owned dispositions are:
 
 | Disposition | Reviewed context |

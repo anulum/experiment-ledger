@@ -35,4 +35,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 
 - Verify the selected CodeQL bundle before passing its local archive to the pinned analysis action.
 
+- Exercise native lint, formatting and strict-type failures through the public gate with reviewed configuration and restored source controls.
+
 No runtime or release is available.

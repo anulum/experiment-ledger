@@ -70,7 +70,7 @@ def _invoke(
 
 @pytest.fixture
 def root(tmp_path: Path) -> Path:
-    """Prepare a complete byte-identical implementation for native configuration failure inputs.
+    """Prepare a complete byte-identical implementation for native source and configuration tests.
 
     Parameters
     ----------
@@ -95,6 +95,34 @@ def test_actual_fixed_native_lint_gate() -> None:
     report = _invoke(SOURCE, "source_lint")
     result = cast(dict[str, Json], report["native_result"])
     assert report["exit_code"] == 0 and result["native_exit"] == 0
+
+
+@pytest.mark.parametrize(
+    ("name", "before", "after"),
+    [
+        ("source_lint", "from pathlib import Path", "import fractions\n\nfrom pathlib import Path"),
+        ("source_format", "PRIVATE_PARTS = frozenset(", "PRIVATE_PARTS= frozenset("),
+        ("strict_types", "def verify(root: Path) -> None:", "def verify(root: Path) -> str:"),
+    ],
+)
+def test_actual_bad_source_fails_native_analysis_then_restored_source_passes(
+    root: Path, name: str, before: str, after: str
+) -> None:
+    """The public gate forwards actual native source failures under unchanged reviewed inputs."""
+    path = root / "tools/ledger_validation/inventory.py"
+    original = path.read_bytes()
+    configuration = (root / "pyproject.toml").read_bytes()
+    assert original.count(before.encode()) == 1
+    path.write_bytes(original.replace(before.encode(), after.encode(), 1))
+    report = _invoke(root, name, implementation=root)
+    native = cast(dict[str, Json], report["native_result"])
+    assert report["exit_code"] == 2 and native["native_exit"] == 1
+    assert native["status"] == "refused" and "finding" not in native
+    assert (root / "pyproject.toml").read_bytes() == configuration
+    path.write_bytes(original)
+    restored = _invoke(root, name, implementation=root)
+    result = cast(dict[str, Json], restored["native_result"])
+    assert restored["exit_code"] == 0 and result["native_exit"] == 0
 
 
 @pytest.mark.parametrize("name", ["source_lint", "source_format", "strict_types"])
