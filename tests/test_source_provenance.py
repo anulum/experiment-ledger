@@ -8,6 +8,7 @@
 
 """Exercise licence provenance through actual source trees and public CLI processes."""
 
+import json
 import subprocess
 from collections.abc import Iterator
 from pathlib import Path
@@ -142,6 +143,53 @@ def test_json_suffix_case_keeps_exact_sidecar_contract(repository: Path, name: s
     sidecar.unlink()
     assert report(invoke(repository), 3)["findings"] == [
         {"code": "json_sidecar_unavailable", "location": name}
+    ]
+
+
+@pytest.mark.parametrize("member", ["SPDX-" + "License-Identifier", "spdx_license_identifier"])
+@pytest.mark.parametrize("value", ["MIT", None])
+def test_top_level_json_licence_cannot_conflict_with_sidecar(
+    repository: Path, member: str, value: str | None
+) -> None:
+    """An optional received top-level ownership field must agree with its exact sidecar."""
+    name = "licence-example.json"
+    (repository / name).write_text(json.dumps({member: value}) + "\n")
+    (repository / (name + ".license")).write_bytes(
+        (repository / "repository-domain.json.license").read_bytes()
+    )
+    assert report(invoke(repository), 2)["findings"] == [
+        {"code": "json_licence_conflict", "location": name}
+    ]
+
+
+@pytest.mark.parametrize("member", ["SPDX-" + "License-Identifier", "spdx_license_identifier"])
+def test_matching_json_ownership_keeps_nested_component_licences(
+    repository: Path, member: str
+) -> None:
+    """Matching optional ownership is admitted without relabelling nested third-party metadata."""
+    name = "licence-example.json"
+    raw = json.dumps({member: "AGPL-3.0-or-later", "components": [{member: "MIT"}]}).encode()
+    (repository / name).write_bytes(raw)
+    (repository / (name + ".license")).write_bytes(
+        (repository / "repository-domain.json.license").read_bytes()
+    )
+    assert report(invoke(repository), 0)["findings"] == []
+    assert (repository / name).read_bytes() == raw
+
+
+def test_two_json_ownership_members_must_both_match(repository: Path) -> None:
+    """One matching ownership spelling cannot hide a conflicting second declaration."""
+    name = "licence-example.json"
+    (repository / name).write_text(
+        json.dumps(
+            {"SPDX-" + "License-Identifier": "AGPL-3.0-or-later", "spdx_license_identifier": "MIT"}
+        )
+    )
+    (repository / (name + ".license")).write_bytes(
+        (repository / "repository-domain.json.license").read_bytes()
+    )
+    assert report(invoke(repository), 2)["findings"] == [
+        {"code": "json_licence_conflict", "location": name}
     ]
 
 

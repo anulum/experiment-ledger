@@ -48,6 +48,8 @@ The command reads each text source within 1,048,576 bytes; source JSON shares th
 
 Additional original or third-party material needs an explicit source-policy update that preserves its ownership. The checker never rewrites licence files. The Make provenance target and local hooks additionally run native REUSE classification over the actual source cohort. Ignored development environments, private plans and generated files are outside the Git-maintained cohort. Their exclusion is not proof of privacy, package contents, filesystem containment or a complete inventory audit. Installed dependency qualification, native REUSE results and the remaining gates retain their own scope.
 
+An existing top-level `SPDX-License-Identifier` or `spdx_license_identifier` in JSON must agree with its ownership sidecar. Both spellings are checked when both are present. Nested component licences retain their separate meaning. The checker adds no ownership fields and preserves the received bytes.
+
 ## Native interfaces
 
 ::: ledger_validation.metadata.verify

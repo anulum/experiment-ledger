@@ -120,11 +120,14 @@ def verify(root: Path) -> None:
             if hashlib.sha256(raw).hexdigest() != BINARY_SOURCES[name]:
                 raise CheckFailure("asset_source_changed", name)
         elif name.lower().endswith(".json"):
-            read_object(root, name, 1048576)
+            _, document = read_object(root, name, 1048576)
             if name + ".license" not in names:
                 raise CheckFailure("json_sidecar_unavailable", name, unavailable=True)
             if read_bytes(root, name + ".license", 8192) != SIDECAR:
                 raise CheckFailure("json_sidecar_mismatch", name)
+            for field in ("SPDX-" + "License-Identifier", "spdx_license_identifier"):
+                if field in document and document[field] != "AGPL-3.0-or-later":
+                    raise CheckFailure("json_licence_conflict", name)
         elif name.endswith(".license"):
             if name[:-8] not in names or not name[:-8].lower().endswith(".json"):
                 raise CheckFailure("orphan_licence_sidecar", name)
