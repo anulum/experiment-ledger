@@ -27,4 +27,6 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 - Bind declared licence and dependency descriptions to the original installed package metadata.
 - Regenerate complete development provenance from separately reviewed source identities and original installed bytes, with enforced output drift checks.
 
+- Constrain isolated source-build dependencies with the complete hash lock during development and CI installation.
+
 No runtime or release is available.

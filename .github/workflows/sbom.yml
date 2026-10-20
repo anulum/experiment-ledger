@@ -47,7 +47,7 @@ jobs:
         run: |
           mkdir -p .tool-cache/tmp
           uv venv --python 3.13.16 .venv
-          uv pip sync --python .venv/bin/python --require-hashes --link-mode hardlink requirements-dev.txt
+          uv pip sync --python .venv/bin/python --require-hashes --build-constraints requirements-dev.txt --link-mode hardlink requirements-dev.txt
           make native-tools
       - name: Development dependency inventory
         run: |

@@ -21,7 +21,7 @@ The tooling target is Linux x86-64 with Python 3.13.16 and uv 0.12.22. Create an
 ```sh
 mkdir -p .tool-cache/uv .tool-cache/tmp
 uv venv --python 3.13.16 .venv
-UV_CACHE_DIR="$PWD/.tool-cache/uv" UV_LINK_MODE=hardlink uv pip sync --python .venv/bin/python --require-hashes requirements-dev.txt
+UV_CACHE_DIR="$PWD/.tool-cache/uv" UV_LINK_MODE=hardlink uv pip sync --python .venv/bin/python --require-hashes --build-constraints requirements-dev.txt requirements-dev.txt
 make native-tools
 ```
 

@@ -40,7 +40,7 @@ INSTALL = (
     "mkdir -p .tool-cache/tmp\n"
     "uv venv --python 3.13.16 .venv\n"
     "uv pip sync --python .venv/bin/python --require-hashes "
-    "--link-mode hardlink requirements-dev.txt\n"
+    "--build-constraints requirements-dev.txt --link-mode hardlink requirements-dev.txt\n"
     "make native-tools"
 )
 COMMANDS = {
