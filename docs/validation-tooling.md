@@ -83,6 +83,8 @@ make inventory
 
 Documentation checks maintained Markdown links and anchors, excludes private or unearned public content, builds the actual configured Python API with strict MkDocs and inspects generated HTML. Output stays under `.tool-cache/documentation`. The renderer uses the reviewed repository configuration and plugins.
 
+For reproducible documentation bytes, record and reuse the generator's [source-date input](https://reproducible-builds.org/specs/source-date-epoch/) alongside the exact source and locked toolchain. For a committed source tree, use `SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)" make docs`. Rebuilding that same source with the same recorded epoch reproduces the complete site, including the compressed sitemap. A different epoch can change its gzip header even when the uncompressed content is identical. Keep this input in reproduction records rather than treating two builds with different dates as the same build inputs.
+
 Inventory requires the original foundation paths and all Git-enrolled sources to remain available, regular, contained and within their byte bounds. It verifies actual ignore protection and rejects enrolled private/generated material, forbidden workspace or credential state, and unexpected build output. These filesystem inputs are ordinary repository checks; domain recovery and filesystem-race qualification retain separate scope.
 
 ## Native executable bootstrap
