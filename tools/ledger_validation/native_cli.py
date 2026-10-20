@@ -23,7 +23,7 @@ class NativeArguments(Arguments):
     Attributes
     ----------
     only : list[str] or None
-        Selected classified tools; None verifies both selected originals.
+        Selected classified tools; None verifies all selected originals.
     download : bool
         Explicit permission to retrieve missing originals.
     """

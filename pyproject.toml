@@ -53,7 +53,11 @@ sigterm = true
 data_file = ".tool-cache/coverage/data"
 
 [tool.coverage.paths]
-tools = ["tools", "*/.tool-cache/tests/preflight/*/tools"]
+tools = [
+    "tools",
+    "*/.tool-cache/tests/preflight/*/tools",
+    "*/.tool-cache/tests/complete/*/tools",
+]
 
 [tool.coverage.report]
 fail_under = 100

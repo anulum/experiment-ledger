@@ -105,6 +105,11 @@
           "bytes": 1531,
           "path": "babel-2.18.0.dist-info/licenses/LICENSE",
           "sha256": "86bad5758c7859ba06251f8f12eee885eca31369923dfb2b87a7c13c3634d870"
+        },
+        {
+          "bytes": 2033,
+          "path": "babel/locale-data/LICENSE.unicode",
+          "sha256": "b4c0ae8ef04f7059f96ce5bbe0467f9fe6f6d81bbe13517701dfeb961fb4d0b6"
         }
       ],
       "license_label": "BSD-3-Clause",
@@ -1103,6 +1108,21 @@
           "bytes": 11357,
           "path": "license_expression-30.4.4.dist-info/licenses/apache-2.0.LICENSE",
           "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "bytes": 880,
+          "path": "license_expression/_pyahocorasick.ABOUT",
+          "sha256": "75d79cccf1fc302cb4a99bd32aac8bd4fc80926b15d31f0ba994d16cdf844032"
+        },
+        {
+          "bytes": 18651,
+          "path": "license_expression/data/cc-by-4.0.LICENSE",
+          "sha256": "2a82ac9bbc3e3ee066908381e8d373896db5a6025d083fbd59692fe9ccfb9111"
+        },
+        {
+          "bytes": 421,
+          "path": "license_expression/data/license_key_index.json.ABOUT",
+          "sha256": "fb5ce1f2dbd2bedc01fad9507be71ca19ec37b4d6f8dfb9516fbfefee410d85d"
         }
       ],
       "license_label": "Apache-2.0",
@@ -1484,6 +1504,11 @@
           "bytes": 1068,
           "path": "material/templates/.icons/octicons/LICENSE",
           "sha256": "3d8b9d9254e7aa7517ed5abc8df3a4bc230081a613e8e872fb6558e8759c9040"
+        },
+        {
+          "bytes": 6569,
+          "path": "material/templates/.icons/simple/LICENSE.md",
+          "sha256": "9046848b63a5c92bff14e4accca80bd987e0623b74adf9226ce5198d312b79d5"
         },
         {
           "bytes": 1093,
@@ -2010,6 +2035,11 @@
           "sha256": "cb5e8e7e5f4a3988e1063c142c60dc2df75605f4c46515e776e3aca6df976e14"
         },
         {
+          "bytes": 1541,
+          "path": "pip/_vendor/idna/LICENSE.md",
+          "sha256": "1a9a4f0e3d479a27240ddd59a9137a66ab4a0f9dfdc8ca6188cc0bfd85187f04"
+        },
+        {
           "bytes": 614,
           "path": "pip/_vendor/msgpack/COPYING",
           "sha256": "492dedba85da5872f78e6091bcd1fea474d660d35acb4dee964b8aab3f007427"
@@ -2018,6 +2048,16 @@
           "bytes": 197,
           "path": "pip/_vendor/packaging/LICENSE",
           "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+        },
+        {
+          "bytes": 10174,
+          "path": "pip/_vendor/packaging/LICENSE.APACHE",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        },
+        {
+          "bytes": 1344,
+          "path": "pip/_vendor/packaging/LICENSE.BSD",
+          "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
         },
         {
           "bytes": 1023,
@@ -2173,7 +2213,13 @@
     {
       "license_classifiers": [],
       "license_expression": null,
-      "license_files": [],
+      "license_files": [
+        {
+          "bytes": 1080,
+          "path": "pip_requirements_parser-32.0.1.dist-info/mit.LICENSE",
+          "sha256": "18081c2c82771ca09d99d08cdac405924309e09fd19b16f1eea59cbc6ab809ed"
+        }
+      ],
       "license_label": "MIT",
       "metadata_sha256": "e21f49c644814ff1bba064a641768f2f534c806cff523e2403652793794ab46d",
       "name": "pip-requirements-parser",
@@ -2277,6 +2323,16 @@
           "bytes": 197,
           "path": "poetry/core/_vendor/packaging/LICENSE",
           "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+        },
+        {
+          "bytes": 10174,
+          "path": "poetry/core/_vendor/packaging/LICENSE.APACHE",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        },
+        {
+          "bytes": 1344,
+          "path": "poetry/core/_vendor/packaging/LICENSE.BSD",
+          "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
         },
         {
           "bytes": 1072,
@@ -2831,6 +2887,21 @@
           "bytes": 35149,
           "path": "reuse-6.2.0.dist-info/licenses/LICENSES/GPL-3.0-or-later.txt",
           "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        },
+        {
+          "bytes": 100,
+          "path": "reuse/resources/exceptions.json.license",
+          "sha256": "78dc59c5d3ce8e1463db481ce176f24ef5cad130971c7c8f6b7bae430ff45584"
+        },
+        {
+          "bytes": 100,
+          "path": "reuse/resources/licenses.json.license",
+          "sha256": "78dc59c5d3ce8e1463db481ce176f24ef5cad130971c7c8f6b7bae430ff45584"
+        },
+        {
+          "bytes": 119,
+          "path": "reuse/templates/default_template.jinja2.license",
+          "sha256": "3b6249c10d5f50e4a316427c92c6c9b24c580823ec7095ad11c8055f303abdad"
         }
       ],
       "license_label": "Apache-2.0 AND CC0-1.0 AND CC-BY-SA-4.0 AND GPL-3.0-or-later",

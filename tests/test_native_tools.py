@@ -85,7 +85,7 @@ def archives() -> dict[str, bytes]:
     return originals
 
 
-@pytest.mark.parametrize("name", ["actionlint", "gitleaks"])
+@pytest.mark.parametrize("name", ["actionlint", "gitleaks", "shellcheck"])
 def test_selected_original_archive_and_binary_identities(
     archives: dict[str, bytes], name: str
 ) -> None:
@@ -116,8 +116,8 @@ def test_changed_actual_binary_refuses(change: str) -> None:
     assert error.value.code == "native_source_mismatch"
 
 
-def test_both_actual_cached_tools_qualify_without_network() -> None:
-    """Verification alone accepts both original executable bytes without retrieving anything."""
+def test_all_actual_cached_tools_qualify_without_network() -> None:
+    """Verification alone accepts all selected original executable bytes without retrieving anything."""
     assert _invoke(SOURCE)["findings"] == []
 
 
@@ -128,7 +128,7 @@ def test_missing_cache_requires_explicit_download(tmp_path: Path) -> None:
 
 
 def test_actual_https_bootstrap_and_repeat_verification(tmp_path: Path) -> None:
-    """Explicitly download both selected originals, then verify and execute native version help."""
+    """Explicitly download all selected originals, then verify and execute native version help."""
     assert _invoke(tmp_path, "--download")["findings"] == []
     assert _invoke(tmp_path)["findings"] == []
     for name in NATIVE_SOURCES:
@@ -206,7 +206,7 @@ def test_help_arguments_and_human_report() -> None:
 
 
 def test_actual_make_bootstrap_target_retains_native_success() -> None:
-    """The real Make target reaches the bootstrap with both selected cached originals."""
+    """The real Make target reaches the bootstrap with all selected cached originals."""
     result = subprocess.run(
         ["make", "--no-print-directory", "native-tools"],
         cwd=SOURCE,

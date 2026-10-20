@@ -19,4 +19,7 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 - Verify native tool archives and executable bytes before explicitly bootstrapping missing validation dependencies.
 - Expose strict bounded JSON decoding for original in-memory bytes.
 
+- Wire all foundation validators, reviewed native gates, complete profile and workflow execution contracts.
+- Verify ShellCheck alongside Actionlint before native workflow analysis.
+
 No runtime or release is available.

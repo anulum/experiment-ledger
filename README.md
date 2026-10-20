@@ -12,7 +12,7 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 
 Experiment Ledger is being developed as a local registry of experiment records and evidence references. Its purpose is to make the code, data, model, configuration and evidence behind a result traceable across tools.
 
-The repository foundation is under construction. [Metadata, source-provenance checks, native tool verification and validation child supervision](docs/validation-tooling.md) are available; the remaining executable foundation is unfinished. No Ledger runtime, Python distribution, Rust library, hosted service or qualified experiment result is available. Public capabilities, claims and qualified schema inventories are empty.
+The repository foundation is under construction. [Validation tools](docs/validation-tooling.md) cover metadata, source provenance, workflows, installed dependencies, documentation, native commands and source inventory. Complete foundation acceptance remains in progress. No Ledger runtime, Python distribution, Rust library, hosted service or qualified experiment result is available. Public capabilities, claims and qualified schema inventories are empty.
 
 ## Planned boundary
 

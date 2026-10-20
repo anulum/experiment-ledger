@@ -10,12 +10,12 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 
 # Validation scope
 
-The repository foundation is under construction. Metadata declarations and maintained-source provenance have real project-owned checkers. Native validation child supervision has a public library API exercised with actual commands, output bounds, cache refusals and deadline reaping. A native-tool bootstrap verifies selected archive and executable bytes before installing missing validation tools. The complete project-owned validator suite, Ledger runtime, native interoperability result and released artefacts remain unavailable.
+The repository foundation is under construction. Public commands inspect metadata, maintained-source provenance, classified workflows, the installed development graph, documentation, source inventory and native quality gates. Native bootstrap verifies selected originals before installation or execution. The complete preflight requires every declared gate; omitted or unavailable checks cannot pass.
 
-Current metadata and documentation may receive selected native checks. Each result applies only to the exact checked files and command. No complete foundation acceptance, aggregate coverage percentage or hosted status is claimed.
+Tests exercise actual CLI, file, Git, installed metadata, renderer and native process behaviour. The complete test gate retains every maintained Python tooling and test file and requires full executable statement and branch coverage. Results apply to exact checked source, toolchain and invocation; hosted status and complete foundation acceptance require their own evidence.
 
-Complete foundation acceptance requires real metadata, provenance, workflow, dependency, documentation, inventory and preflight entry points; strict typing, formatting and documentation; a reproducible development graph; source and licence checks; and public behaviour tests covering all maintained executable statements and branches.
+Native source-pattern output retains every advisory and its original exit. Explicit owned dispositions bind complete scan coverage, exact source bytes and finding identities. New or changed warnings require review. Advisory qualification does not represent independent security approval.
 
-Domain acceptance additionally requires both native storage implementations and consumers, installed Common integration, original record and publication controls, cross-language store exchange and the applicable resource and failure boundaries. The development lock and planned format inventory provide none of that runtime evidence.
+The Ledger runtime, native interoperability result and released artefacts remain unavailable. Domain acceptance requires both native storage implementations and consumers, installed Common integration, original record/publication controls and cross-language store exchange at their applicable resource and failure boundaries. The development lock and planned format inventory describe the foundation.
 
 See [validation tooling](docs/validation-tooling.md) and [architecture](docs/ARCHITECTURE.md).

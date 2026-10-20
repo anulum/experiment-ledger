@@ -36,6 +36,8 @@ class NativeSource(NamedTuple):
         Exact original executable byte count.
     binary_sha256 : str
         Selected executable digest, checked before installation or use.
+    member : str
+        Reviewed original archive member, read without filesystem extraction.
     """
 
     url: str
@@ -43,6 +45,7 @@ class NativeSource(NamedTuple):
     archive_sha256: str
     binary_bytes: int
     binary_sha256: str
+    member: str
 
 
 NATIVE_SOURCES = {
@@ -53,6 +56,7 @@ NATIVE_SOURCES = {
         "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8",
         6074530,
         "c872d6db8c6bf83a8eaa704fc93999f027d55dffbc63b8a6abdccb47df5f4cd4",
+        "actionlint",
     ),
     "gitleaks": NativeSource(
         "https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/"
@@ -61,6 +65,16 @@ NATIVE_SOURCES = {
         "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb",
         21958840,
         "88f91962aa2f93ac6ab281d553b9e125f5197bbbce38f9f2437f7299c32e5509",
+        "gitleaks",
+    ),
+    "shellcheck": NativeSource(
+        "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/"
+        "shellcheck-v0.11.0.linux.x86_64.tar.gz",
+        3773312,
+        "b7af85e41cc99489dcc21d66c6d5f3685138f06d34651e6d34b42ec6d54fe6f6",
+        16213136,
+        "4da528ddb3a4d1b7b24a59d4e16eb2f5fd960f4bd9a3708a15baddbdf1d5a55b",
+        "shellcheck-v0.11.0/shellcheck",
     ),
 }
 
@@ -112,14 +126,14 @@ def unpack_archive(name: str, raw: bytes) -> bytes:
 
     Notes
     -----
-    Parsing follows the exact frozen archive digest; this accepts only the two
+    Parsing follows the exact frozen archive digest; this accepts only the selected
     reviewed originals, not arbitrary archives or caller-supplied source policy.
     """
     source = NATIVE_SOURCES[name]
     if len(raw) != source.archive_bytes or hashlib.sha256(raw).hexdigest() != source.archive_sha256:
         raise CheckFailure("native_archive_mismatch", name)
     with tarfile.open(fileobj=io.BytesIO(raw), mode="r:gz") as archive:
-        stream = archive.extractfile(name)
+        stream = archive.extractfile(source.member)
         assert stream is not None
         with stream:
             binary = stream.read(source.binary_bytes + 1)

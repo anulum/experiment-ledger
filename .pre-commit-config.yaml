@@ -47,6 +47,54 @@ repos:
         entry: .venv/bin/python tools/bootstrap_native_tools.py --root . --json
         pass_filenames: false
         always_run: true
+      - id: workflow-policy
+        name: Workflow execution contracts
+        language: system
+        entry: .venv/bin/python tools/check_workflow_policy.py --root . --json
+        pass_filenames: false
+        always_run: true
+      - id: dependency-alignment
+        name: Installed dependency and execution alignment
+        language: system
+        entry: .venv/bin/python tools/check_dependency_alignment.py --root . --json
+        pass_filenames: false
+        always_run: true
+      - id: repository-inventory
+        name: Maintained repository and privacy inventory
+        language: system
+        entry: .venv/bin/python tools/check_repository_inventory.py --root . --json
+        pass_filenames: false
+        always_run: true
+      - id: documentation-projection
+        name: Strict documentation and public projection
+        language: system
+        entry: .venv/bin/python tools/check_documentation.py --root . --json
+        pass_filenames: false
+        always_run: true
+      - id: source-pattern-review
+        name: Complete native source advisories and owned review
+        language: system
+        entry: .venv/bin/python tools/check_native_gate.py --root . --check source_patterns --json
+        pass_filenames: false
+        always_run: true
+      - id: source-credentials
+        name: Maintained-source credential scan
+        language: system
+        entry: .venv/bin/python tools/check_native_gate.py --root . --check source_credentials --json
+        pass_filenames: false
+        always_run: true
+      - id: workflow-syntax
+        name: Native Actionlint and verified ShellCheck
+        language: system
+        entry: .venv/bin/python tools/check_native_gate.py --root . --check workflow_syntax --json
+        pass_filenames: false
+        always_run: true
+      - id: workflow-static
+        name: Pedantic native workflow analysis
+        language: system
+        entry: .venv/bin/python tools/check_native_gate.py --root . --check workflow_static_checks --json
+        pass_filenames: false
+        always_run: true
       - id: native-reuse
         name: Native source licence classification
         language: system

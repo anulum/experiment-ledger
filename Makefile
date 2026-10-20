@@ -7,11 +7,17 @@
 # EXPERIMENT-LEDGER — repository identity and validation foundation
 
 PYTHON ?= .venv/bin/python
-COVERAGE_FILE ?= .tool-cache/coverage/metadata/data
-TEST_BASETEMP ?= .tool-cache/tests/metadata
+COVERAGE_FILE ?= .tool-cache/coverage/complete/data
+TEST_BASETEMP ?= .tool-cache/tests/complete
 export COVERAGE_FILE
+export TMPDIR := $(abspath .tool-cache/tmp)
+export PRE_COMMIT_HOME := $(abspath .tool-cache/pre-commit)
+.NOTPARALLEL:
 
-.PHONY: metadata provenance lint format-check types docs test-metadata test-provenance native-tools native-checks
+.PHONY: metadata provenance workflow-policy dependencies inventory documentation
+.PHONY: lint format-check types docs test test-metadata test-provenance
+.PHONY: native-tools native-checks preflight source-audit ci source-patterns
+.PHONY: credentials vulnerabilities workflow-native workflow-static compatibility
 
 metadata:
 	$(PYTHON) tools/check_repository_metadata.py --root . --json
@@ -20,28 +26,63 @@ provenance:
 	$(PYTHON) tools/check_source_provenance.py --root . --json
 	$(PYTHON) -m reuse lint
 
+workflow-policy:
+	$(PYTHON) tools/check_workflow_policy.py --root . --json
+
+dependencies:
+	$(PYTHON) tools/check_dependency_alignment.py --root . --json
+
+inventory:
+	$(PYTHON) tools/check_repository_inventory.py --root . --json
+
+docs documentation:
+	$(PYTHON) tools/check_documentation.py --root . --json
+
 lint:
-	$(PYTHON) -m ruff check --no-respect-gitignore tools tests
+	$(PYTHON) tools/check_native_gate.py --root . --check source_lint --json
 
 format-check:
-	$(PYTHON) -m ruff format --check --no-respect-gitignore tools tests
+	$(PYTHON) tools/check_native_gate.py --root . --check source_format --json
 
 types:
-	$(PYTHON) -m mypy --strict tools tests
+	$(PYTHON) tools/check_native_gate.py --root . --check strict_types --json
 
-docs:
-	$(PYTHON) -m mkdocs build --strict
+source-patterns:
+	$(PYTHON) tools/check_native_gate.py --root . --check source_patterns --json
 
-test-metadata test-provenance:
-	mkdir -p .tool-cache/tmp $(dir $(COVERAGE_FILE))
-	$(PYTHON) -m coverage erase
-	TMPDIR=$(abspath .tool-cache/tmp) nice -n 19 $(PYTHON) -m coverage run --branch --source=tools,tests --parallel-mode -m pytest -p no:pytest_cov -q -n 0 --basetemp=$(TEST_BASETEMP) tests/test_repository_metadata.py tests/test_source_provenance.py
-	$(PYTHON) -m coverage combine $(dir $(COVERAGE_FILE))
-	$(PYTHON) -m coverage report --fail-under=100
-	$(PYTHON) -m coverage json -o .tool-cache/coverage/metadata/result.json
+credentials:
+	$(PYTHON) tools/check_native_gate.py --root . --check source_credentials --json
+
+vulnerabilities:
+	$(PYTHON) tools/check_native_gate.py --root . --check dependency_vulnerabilities --json
+
+workflow-native:
+	$(PYTHON) tools/check_native_gate.py --root . --check workflow_syntax --json
+
+workflow-static:
+	$(PYTHON) tools/check_native_gate.py --root . --check workflow_static_checks --json
+
+compatibility:
+	$(PYTHON) tools/check_native_gate.py --root . --check installed_compatibility --json
 
 native-tools:
+	mkdir -p $(TMPDIR)
 	$(PYTHON) tools/bootstrap_native_tools.py --root . --download --json
 
 native-checks:
 	$(PYTHON) tools/bootstrap_native_tools.py --root . --json
+
+preflight: native-checks
+	$(PYTHON) tools/preflight.py --root . --profile local-scaffold --json --report .tool-cache/preflight/result.json
+
+source-audit: native-checks provenance workflow-policy dependencies source-patterns credentials vulnerabilities workflow-native workflow-static
+
+ci: native-tools preflight test
+
+test test-metadata test-provenance:
+	mkdir -p $(TMPDIR) $(dir $(COVERAGE_FILE))
+	$(PYTHON) -m coverage erase
+	nice -n 19 $(PYTHON) -m coverage run --branch --source=tools,tests --parallel-mode -m pytest -p no:pytest_cov -q -n 0 --basetemp=$(TEST_BASETEMP) tests
+	$(PYTHON) -m coverage combine $(dir $(COVERAGE_FILE))
+	$(PYTHON) -m coverage report --fail-under=100
+	$(PYTHON) -m coverage json -o $(dir $(COVERAGE_FILE))result.json

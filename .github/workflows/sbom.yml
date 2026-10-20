@@ -1,0 +1,55 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# EXPERIMENT-LEDGER — repository identity and validation foundation
+
+name: Development dependency inventory
+'on':
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  inventory:
+    name: Inventory
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      UV_LINK_MODE: hardlink
+      UV_CACHE_DIR: ${{ github.workspace }}/.tool-cache/uv
+      PRE_COMMIT_HOME: ${{ github.workspace }}/.tool-cache/pre-commit
+    steps:
+      - name: Read source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Python toolchain
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.13.16'
+      - name: Locked environment installer
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78
+        with:
+          version: '0.12.22'
+          enable-cache: true
+          cache-dependency-glob: requirements-dev.txt
+          cache-local-path: ${{ github.workspace }}/.tool-cache/uv
+          checksum: b9980552309f09c15172b8be828555e375097f16deb459795ce7bfd200380f0b
+          prune-cache: false
+      - name: Install exact development graph
+        run: |
+          mkdir -p .tool-cache/tmp
+          uv venv --python 3.13.16 .venv
+          uv pip sync --python .venv/bin/python --require-hashes --link-mode hardlink requirements-dev.txt
+          make native-tools
+      - name: Development dependency inventory
+        run: |
+          mkdir -p .tool-cache/sbom
+          .venv/bin/python -m cyclonedx_py requirements requirements-dev.txt --of JSON -o .tool-cache/sbom/development.cdx.json

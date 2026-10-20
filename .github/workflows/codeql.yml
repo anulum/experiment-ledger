@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# EXPERIMENT-LEDGER — repository identity and validation foundation
+
+name: Python source analysis
+'on':
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  python-analysis:
+    name: Python analysis
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Read source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Initialise Python analysis
+        uses: github/codeql-action/init@0d579ffd059c29b07949a3cce3983f0780820c98
+        with:
+          languages: python
+          build-mode: none
+          tools: linked
+          ram: 2048
+          threads: 1
+      - name: Analyse without publishing
+        uses: github/codeql-action/analyze@0d579ffd059c29b07949a3cce3983f0780820c98
+        with:
+          upload: never
+          upload-database: false
+          output: .tool-cache/codeql-results

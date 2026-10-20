@@ -1,0 +1,40 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Commercial license available
+# © Concepts 1996–2026 Miroslav Šotek. All rights reserved.
+# © Code 2020–2026 Miroslav Šotek. All rights reserved.
+# ORCID: 0009-0009-3560-0851
+# Contact: www.anulum.li | protoscience@anulum.li
+# EXPERIMENT-LEDGER — repository identity and validation foundation
+
+name: Repository scorecard
+'on':
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  scorecard:
+    name: Scorecard
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    if: ${{ github.event_name == 'pull_request' || github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+    steps:
+      - name: Read source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Prepare owned report directory
+        run: mkdir -p .tool-cache/scorecard
+      - name: Read-only repository assessment
+        uses: docker://ghcr.io/ossf/scorecard-action@sha256:2dd6a6d60100f78ef24e14a47941d0087a524b4d3642041558239b1c6097c941
+        env:
+          INPUT_RESULTS_FILE: .tool-cache/scorecard/results.json
+          INPUT_RESULTS_FORMAT: json
+          INPUT_PUBLISH_RESULTS: 'false'
+          INPUT_FILE_MODE: archive
+          INPUT_REPO_TOKEN: ${{ github.token }}
+          INPUT_INTERNAL_DEFAULT_TOKEN: ${{ github.token }}
