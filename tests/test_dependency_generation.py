@@ -35,6 +35,7 @@ def _invoke(
     entrypoint: str = "tools/generate_dependency_provenance.py",
 ) -> subprocess.CompletedProcess[bytes]:
     environment = dict(os.environ)
+    environment.setdefault("COVERAGE_FILE", str(SOURCE / ".tool-cache/coverage/data"))
     if metadata_path is not None:
         environment["PYTHONPATH"] = str(metadata_path)
     executable = sys.executable

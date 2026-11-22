@@ -7,7 +7,7 @@
 # EXPERIMENT-LEDGER — repository identity and validation foundation
 
 PYTHON ?= .venv/bin/python
-COVERAGE_FILE ?= .tool-cache/coverage/complete/data
+COVERAGE_FILE ?= $(abspath .tool-cache/coverage/complete/data)
 TEST_BASETEMP ?= .tool-cache/tests/complete
 export COVERAGE_FILE
 export TMPDIR := $(abspath .tool-cache/tmp)

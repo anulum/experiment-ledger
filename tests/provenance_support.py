@@ -90,6 +90,7 @@ def invoke(
         command.append("--json")
     command.extend(arguments)
     environment = dict(os.environ)
+    environment.setdefault("COVERAGE_FILE", str(SOURCE / ".tool-cache/coverage/data"))
     if without_git:
         environment["PATH"] = ""
     if isolate_discovery:

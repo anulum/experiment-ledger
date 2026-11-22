@@ -124,7 +124,7 @@ def _generate(root: Path, *arguments: str) -> subprocess.CompletedProcess[bytes]
             *arguments,
         ],
         cwd=root,
-        env=dict(os.environ),
+        env={"COVERAGE_FILE": str(SOURCE / ".tool-cache/coverage/data")} | dict(os.environ),
         capture_output=True,
         timeout=15,
     )

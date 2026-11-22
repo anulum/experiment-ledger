@@ -25,6 +25,7 @@ WORKFLOWS = SOURCE / ".github/workflows"
 
 def _invoke(root: Path, *arguments: str) -> subprocess.CompletedProcess[str]:
     environment = dict(os.environ)
+    environment.setdefault("COVERAGE_FILE", str(SOURCE / ".tool-cache/coverage/data"))
     return subprocess.run(
         [
             sys.executable,
