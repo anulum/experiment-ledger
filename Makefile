@@ -86,7 +86,7 @@ source-audit: native-checks provenance workflow-policy dependencies source-patte
 ci: native-tools preflight test
 
 test test-metadata test-provenance:
-	mkdir -p $(TMPDIR) $(dir $(COVERAGE_FILE))
+	mkdir -p $(TMPDIR) $(dir $(COVERAGE_FILE)) $(dir $(TEST_BASETEMP))
 	$(PYTHON) -m coverage erase
 	nice -n 19 $(PYTHON) -m coverage run --branch --source=tools,tests --parallel-mode -m pytest -p no:pytest_cov -q -n 0 --basetemp=$(TEST_BASETEMP) tests
 	$(PYTHON) -m coverage combine $(dir $(COVERAGE_FILE))

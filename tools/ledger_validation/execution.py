@@ -17,7 +17,7 @@ from .inputs import CheckFailure, read_bytes
 # Reviewed configuration identities complement installed-package and semantic
 # workflow checks. Any configuration change requires an owned review/update.
 EXECUTION_SOURCE_DIGESTS = {
-    "Makefile": "3fd72b7d17cb68ca470e04d2a5cad871abe625d770ecc17152396006b8b149e4",
+    "Makefile": "a683e8650ef6d757e2a509264383725a186ae7de7a6bb5b35b60ceb19e1fe72c",
     ".pre-commit-config.yaml": "5689b68352e748d8e38574d3ce31a15669d95fae2c8d793b2b9f0b3164201107",
     "pyproject.toml": "3b23ff08cf054597cc979285b979610d563293e0fd95fc63e98a93ff526b1eec",
     "gitleaks.toml": "b49fb6c68ad107e0dcc00ab27f4948898006e6e5399e1645065883f6566666d2",
