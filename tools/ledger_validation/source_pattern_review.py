@@ -25,7 +25,7 @@ SOURCE_DISPOSITIONS = {
         "ELINFRA-SAST-PROCESS-001",
     ),
     "tools/ledger_validation/native_tools.py": (
-        "7c8a257a82925a18fde1ffa1446a3b5e9f7ed35ad31f134985acef711ff9622f",
+        "8aefc7cab741d951354470230b566c2759f6903837d9c506630c09a014a9eb4a",
         "ELINFRA-SAST-NATIVE-001",
     ),
     "tools/ledger_validation/workflows.py": (

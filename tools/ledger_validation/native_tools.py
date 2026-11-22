@@ -50,12 +50,12 @@ class NativeSource(NamedTuple):
 
 NATIVE_SOURCES = {
     "uv": NativeSource(
-        "https://github.com/astral-sh/uv/releases/download/0.12.22/"
+        "https://github.com/astral-sh/uv/releases/download/0.13.4/"
         "uv-x86_64-unknown-linux-gnu.tar.gz",
-        19916278,
-        "b9980552309f09c15172b8be828555e375097f16deb459795ce7bfd200380f0b",
-        47991416,
-        "96e1603cb62aebb1a804fe9866a5708ee8bba4c39d07202ad29cf256a67366c3",
+        16653835,
+        "2b428396f12572d4429cf210ca234dd599a33b3af0958a4d5ed569d63e3f344f",
+        37565376,
+        "5b2a2df4ef04c5d778d50702d6e1d1ff22909fc883086b4ef406a4f115e3c4fb",
         "uv-x86_64-unknown-linux-gnu/uv",
     ),
     "actionlint": NativeSource(

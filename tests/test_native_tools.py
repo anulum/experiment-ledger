@@ -246,4 +246,4 @@ def test_first_installer_bootstrap_uses_only_the_standard_library(tmp_path: Path
     installer = tmp_path / ".tool-cache/native/uv/uv"
     assert installer.read_bytes() == (SOURCE / ".tool-cache/native/uv/uv").read_bytes()
     version = subprocess.run([str(installer), "--version"], capture_output=True, timeout=15)
-    assert version.returncode == 0 and version.stdout.startswith(b"uv 0.12.22")
+    assert version.returncode == 0 and version.stdout.startswith(b"uv 0.13.4")

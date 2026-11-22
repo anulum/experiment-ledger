@@ -311,7 +311,7 @@ def test_direct_declarations_must_match_the_complete_lock(root: Path, line: str)
     """Direct inputs cannot name an unlocked tool or drift from its installed lock version."""
     path = root / "requirements-dev.in"
     original = path.read_text()
-    path.write_text(original.replace("uv==0.12.22", line))
+    path.write_text(original.replace("uv==0.13.4", line))
     expected = (
         "dependency_role_mismatch"
         if line.startswith("missing-")

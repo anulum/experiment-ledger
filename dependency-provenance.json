@@ -1,5 +1,5 @@
 {
-  "lock_sha256": "4c7fc816fc66f100b2bba94cf5b8ee473079dbd0c2c754238d374b55e891a243",
+  "lock_sha256": "5af8dde8a9fbd1dc46dc4b3de049609c1a43086db2cea593d33ea737d0d02157",
   "native_tools": [
     {
       "artifact_sha256": "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8",
@@ -34,11 +34,11 @@
       "role": "shellcheck"
     },
     {
-      "artifact_sha256": "b9980552309f09c15172b8be828555e375097f16deb459795ce7bfd200380f0b",
-      "artifact_url": "https://github.com/astral-sh/uv/releases/download/0.12.22/uv-x86_64-unknown-linux-gnu.tar.gz",
+      "artifact_sha256": "2b428396f12572d4429cf210ca234dd599a33b3af0958a4d5ed569d63e3f344f",
+      "artifact_url": "https://github.com/astral-sh/uv/releases/download/0.13.4/uv-x86_64-unknown-linux-gnu.tar.gz",
       "binary_relative_path": ".tool-cache/native/uv/uv",
-      "binary_sha256": "96e1603cb62aebb1a804fe9866a5708ee8bba4c39d07202ad29cf256a67366c3",
-      "bytes": 19916278,
+      "binary_sha256": "5b2a2df4ef04c5d778d50702d6e1d1ff22909fc883086b4ef406a4f115e3c4fb",
+      "bytes": 16653835,
       "role": "uv"
     }
   ],
@@ -323,24 +323,24 @@
       "license_files": [
         {
           "bytes": 989,
-          "path": "certifi-2026.7.22.dist-info/licenses/LICENSE",
+          "path": "certifi-2026.10.19.dist-info/licenses/LICENSE",
           "sha256": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7"
         }
       ],
       "license_label": "MPL-2.0",
-      "metadata_sha256": "ef5af1638fbb23676ac3c5777dfcfc2cd9c348fe4172ed5ba3d277655b248090",
+      "metadata_sha256": "a5c0be3a42daeef0edfaf58e6ea5b7550f3e4e8eb35420f72e902df9bcf00f5c",
       "name": "certifi",
-      "official_metadata_sha256": "c6fe912677e373608eab51e324946005998faeb0fa999e6ddada24676e3556d3",
+      "official_metadata_sha256": "a5c0be3a42daeef0edfaf58e6ea5b7550f3e4e8eb35420f72e902df9bcf00f5c",
       "requires_dist": [],
       "role": "transitive",
       "source_artifact": {
-        "bytes": 136983,
-        "filename": "certifi-2026.7.22-py3-none-any.whl",
+        "bytes": 136464,
+        "filename": "certifi-2026.10.19-py3-none-any.whl",
         "kind": "bdist_wheel",
-        "sha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
-        "url": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl"
+        "sha256": "42d35340cc5b9ba78e818ddbff0c5b1c2b779de448a340fd1b989f5fa8670e1b",
+        "url": "https://files.pythonhosted.org/packages/c4/51/29046e48f693c54e5b7412216d447a1d8362c9653148d98c02cdf65fa733/certifi-2026.10.19-py3-none-any.whl"
       },
-      "version": "2026.7.22"
+      "version": "2026.10.19"
     },
     {
       "license_classifiers": [],
@@ -675,24 +675,24 @@
       "license_files": [
         {
           "bytes": 1088,
-          "path": "filelock-4.0.9.dist-info/licenses/LICENSE",
+          "path": "filelock-4.2.1.dist-info/licenses/LICENSE",
           "sha256": "608c89d5060ae9921adccf3236695bc654a9946e12323ef6c021dfa04e294d48"
         }
       ],
       "license_label": null,
-      "metadata_sha256": "84f4d3bd3932b67c48b4e182fece56cbc837afcb68fcb3b49e26573bfa03df02",
+      "metadata_sha256": "bfaf7126025d4e55327f6d9497b754e469b5ce54224d46e6118150dd13598037",
       "name": "filelock",
-      "official_metadata_sha256": "f7cc5209556e33750e84ab6a7073aada326bfdfa1f857c5c029e173f94a1f2c4",
+      "official_metadata_sha256": "bfaf7126025d4e55327f6d9497b754e469b5ce54224d46e6118150dd13598037",
       "requires_dist": [],
       "role": "transitive",
       "source_artifact": {
-        "bytes": 110368,
-        "filename": "filelock-4.0.9-py3-none-any.whl",
+        "bytes": 162455,
+        "filename": "filelock-4.2.1-py3-none-any.whl",
         "kind": "bdist_wheel",
-        "sha256": "9287fd61b99a806e5202be29a83034c0808a1b9830e820537c2f5773981f7eeb",
-        "url": "https://files.pythonhosted.org/packages/01/4f/83454fafd628e1e7e1726d74e44fb2332be5969d04c6182ca1fecb6c580e/filelock-4.0.9-py3-none-any.whl"
+        "sha256": "7be2662e9e826b9bba28afc0f843a123280d799a2ea44bb5d35ccec67905ae44",
+        "url": "https://files.pythonhosted.org/packages/28/00/db89d339bc4ecdc8087fa7b8607ba22ffc27bf96286f340c9620bea428b3/filelock-4.2.1-py3-none-any.whl"
       },
-      "version": "4.0.9"
+      "version": "4.2.1"
     },
     {
       "license_classifiers": [],
@@ -3493,29 +3493,29 @@
       "license_files": [
         {
           "bytes": 11357,
-          "path": "uv-0.12.22.dist-info/licenses/LICENSE-APACHE",
+          "path": "uv-0.13.4.dist-info/licenses/LICENSE-APACHE",
           "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
         },
         {
           "bytes": 1077,
-          "path": "uv-0.12.22.dist-info/licenses/LICENSE-MIT",
+          "path": "uv-0.13.4.dist-info/licenses/LICENSE-MIT",
           "sha256": "860e3d7a86b84e6a7012c7a635fc64df475cebc6cce34dfeb73a5982ec58176c"
         }
       ],
       "license_label": null,
-      "metadata_sha256": "bd87452b7786f5588584b827dca166e57e269c655f5ea0228b47e83fb703fd27",
+      "metadata_sha256": "00b8c59f203e332092ec679c6f58bb07ccb90732d6b464304032afb1f24079e5",
       "name": "uv",
-      "official_metadata_sha256": "afab0e70d0ba504e60ae335f451a2889d47d8096343b7ad2450f259a18dd7fd8",
+      "official_metadata_sha256": "00b8c59f203e332092ec679c6f58bb07ccb90732d6b464304032afb1f24079e5",
       "requires_dist": [],
       "role": "direct",
       "source_artifact": {
-        "bytes": 20587257,
-        "filename": "uv-0.12.22-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "bytes": 17181168,
+        "filename": "uv-0.13.4-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
         "kind": "bdist_wheel",
-        "sha256": "680769ef701922dd93426b73476073411941f51ac46991a6e5c5a6efbf68a713",
-        "url": "https://files.pythonhosted.org/packages/7a/b0/4cceeef80da0e8627bf3afb628930d5ea8e857f9c2aacbcda8598a5b82aa/uv-0.12.22-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+        "sha256": "05e4332791b4d55b6dde8695b7fa6079b26991519f44760887c5dfbd5ca4fe53",
+        "url": "https://files.pythonhosted.org/packages/4b/a1/de02c0913726728eca56ee258875cbba9c7b0572c63f494fd9f55c7852e3/uv-0.13.4-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
       },
-      "version": "0.12.22"
+      "version": "0.13.4"
     },
     {
       "license_classifiers": [
@@ -3525,37 +3525,37 @@
       "license_files": [
         {
           "bytes": 1077,
-          "path": "virtualenv-21.14.4.dist-info/licenses/LICENSE",
+          "path": "virtualenv-21.14.10.dist-info/licenses/LICENSE",
           "sha256": "38ef740a641ff08df082680e98ab30d09badccee9e5fb686bce21212f3a663f0"
         },
         {
           "bytes": 2846,
-          "path": "virtualenv-21.14.4.dist-info/licenses/THIRD-PARTY-NOTICES.md",
+          "path": "virtualenv-21.14.10.dist-info/licenses/THIRD-PARTY-NOTICES.md",
           "sha256": "0e51b915e26da42c998b274c1a81804c5f9eea5ca49d69da2f96418872590825"
         }
       ],
       "license_label": null,
-      "metadata_sha256": "e61ddea70c7be384fc3cbfb0dfcc4d691a58d3012b1cd137842a8f22a8279491",
+      "metadata_sha256": "7c4b48b8b8fbdd6c78d456272a17dc2a1c25f3af610e37b1149093404ac341a6",
       "name": "virtualenv",
-      "official_metadata_sha256": "7e1f8bbbe98d9c1d83986d7c740d21207f0c4b6e4cb7a5c41320b12c7b0e03bc",
+      "official_metadata_sha256": "7c4b48b8b8fbdd6c78d456272a17dc2a1c25f3af610e37b1149093404ac341a6",
       "requires_dist": [
-        "distlib<1,>=0.3.7",
+        "distlib<1,>=0.4.3",
         "filelock<5,>=3.24.2; python_version >= '3.10'",
-        "filelock<=3.19.1,>=3.16.1; python_version < '3.10'",
-        "packaging>=23.1",
-        "platformdirs<5,>=3.9.1",
-        "python-discovery>=1.6",
-        "typing-extensions>=4.13.2; python_version < '3.11'"
+        "filelock<=3.19.1,>=3.19.1; python_version < '3.10'",
+        "packaging>=26.3",
+        "platformdirs<5,>=4.4",
+        "python-discovery>=1.6.1",
+        "typing-extensions>=4.16; python_version < '3.11'"
       ],
       "role": "transitive",
       "source_artifact": {
-        "bytes": 5487214,
-        "filename": "virtualenv-21.14.4-py3-none-any.whl",
+        "bytes": 5494519,
+        "filename": "virtualenv-21.14.10-py3-none-any.whl",
         "kind": "bdist_wheel",
-        "sha256": "2d1a394ef089220b4606408b184433e49417a6e5590a09c7b8a67fb1e013af56",
-        "url": "https://files.pythonhosted.org/packages/89/69/49381b5dd39d930c4b42819a23b8f9f242dd256bf46fb9dcd7ce713fe5d5/virtualenv-21.14.4-py3-none-any.whl"
+        "sha256": "bf4a0f9671731d097e017e41280aa05e1e1adcd536b0e804fceb3179947ad50e",
+        "url": "https://files.pythonhosted.org/packages/1f/83/6fb5c79de3fe1f174c5c7f0f7bb79e3fd7a464b14871f7abfdb66dd10396/virtualenv-21.14.10-py3-none-any.whl"
       },
-      "version": "21.14.4"
+      "version": "21.14.10"
     },
     {
       "license_classifiers": [
@@ -3654,7 +3654,7 @@
   },
   "source_selection": {
     "path": "dependency-source-selections.json",
-    "sha256": "034fe63d932014170b826e4092478551280c405111f06d8ab929dab88c727285"
+    "sha256": "8dc35fc114c73379e155290a67f4dd7ddd61f8d6f5189fc6d10aba6a06e3f0ae"
   },
   "supported_range": ">=3.13.16,<3.14"
 }

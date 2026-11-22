@@ -23,7 +23,7 @@ from .metadata import inventory_bytes
 from .native_tools import NATIVE_SOURCES
 
 SELECTIONS = "dependency-source-selections.json"
-SELECTION_SHA256 = "034fe63d932014170b826e4092478551280c405111f06d8ab929dab88c727285"
+SELECTION_SHA256 = "8dc35fc114c73379e155290a67f4dd7ddd61f8d6f5189fc6d10aba6a06e3f0ae"
 PROVENANCE = "dependency-provenance.json"
 
 
