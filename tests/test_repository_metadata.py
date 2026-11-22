@@ -66,7 +66,9 @@ def test_complete_declarations_are_checked_without_mutation(root: Path) -> None:
     [
         (("repository_name",), "OTHER"),
         (("owner_group",), "OTHER"),
-        (("lifecycle",), "public_repository"),
+        (("lifecycle",), "local_scaffold"),
+        (("public_remote",), "https://github.com/anulum/other-repository"),
+        (("public_remote",), "https://github.com/anulum/EXPERIMENT-LEDGER"),
         (("evidence_maturity",), "qualified"),
         (("capabilities",), ["append"]),
         (("claims",), ["durable"]),

@@ -15,7 +15,7 @@ from typing import Final
 
 from .inputs import CheckFailure, Json, read_bytes, read_object
 
-SCHEMA_SHA256: Final = "038d594980dcc529038e63a4712999fda1d9c0a519c68b3f6076ebbebf032aae"
+SCHEMA_SHA256: Final = "b993ab868e2112257b9d1d3db003bfb7255e818468337a8b06a7703c28e66fee"
 PROFILE: Final[dict[str, Json]] = {
     "id": "gotm.enterprise-repository-tier0.local-scaffold",
     "revision": "2026-10-04",
@@ -67,7 +67,8 @@ def inventory_bytes(root: Path) -> bytes:
     expected: dict[str, Json] = {
         "repository_name": "EXPERIMENT-LEDGER",
         "owner_group": "SC-NEUROMORPHIC-COMPUTING-SYSTEMS",
-        "lifecycle": "local_scaffold",
+        "lifecycle": "public_repository",
+        "public_remote": "https://github.com/anulum/experiment-ledger",
         "evidence_maturity": "architecture_only",
         "capabilities": [],
         "claims": [],
@@ -86,7 +87,7 @@ def inventory_bytes(root: Path) -> bytes:
         raise CheckFailure("metadata_mismatch", metadata_name)
     expected_inventory: dict[str, Json] = {
         "repository_name": "EXPERIMENT-LEDGER",
-        "lifecycle": "local_scaffold",
+        "lifecycle": "public_repository",
         "evidence_maturity": "architecture_only",
         "capabilities": [],
         "claims": [],

@@ -2,11 +2,11 @@
   "capabilities": [],
   "claims": [],
   "evidence_maturity": "architecture_only",
-  "lifecycle": "local_scaffold",
+  "lifecycle": "public_repository",
   "qualified_owned_schema_ids": [],
   "repository_name": "EXPERIMENT-LEDGER",
   "source_metadata": {
     "path": "repository-domain.json",
-    "sha256": "7833be689115125a9f9315756023b1011c230eec7e5e0e4135f49f6d4ed034ad"
+    "sha256": "287428dd45f26832ae0245b6cb83e05ea3373b3336cb22061d98174ffd04f34e"
   }
 }

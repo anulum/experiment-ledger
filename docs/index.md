@@ -12,6 +12,8 @@ EXPERIMENT-LEDGER — repository identity and validation foundation
 
 ![ANULUM](assets/anulum_logo_company.jpg)
 
+Experiment Ledger is part of the **SC Neuromorphic Computing Systems** group (SC-NEUROMORPHIC-COMPUTING-SYSTEMS). The [group and project map](https://github.com/anulum/sc-neurocore/blob/main/docs/ecosystem.md) shows the whole programme and where this repository sits in it.
+
 This project is preparing a local registry of experiment identities and evidence references. Its repository foundation is being built; no Ledger runtime or qualified experiment capability is available.
 
 Read the [architecture](ARCHITECTURE.md), [validation scope](validation-tooling.md), [trust boundaries](THREAT_MODEL.md) and [repository boundary](adr/0001-repository-boundary.md).
